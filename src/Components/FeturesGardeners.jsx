@@ -1,5 +1,6 @@
 import React, { use } from 'react';
 import FetCard from './FetCard';
+import { FaArrowRight } from 'react-icons/fa';
 
 const fetPromise=fetch("http://localhost:3000/fetGardeners").then(res=>res.json())
 const FeturesGardeners = () => {
@@ -8,7 +9,9 @@ const FeturesGardeners = () => {
    
     return (
         <div  >
-            <h1 className='text-3xl font-bold '>Featured Gardeners</h1>
+           <div className='flex justify-between items-center'> <h1 className='text-3xl font-bold '>Featured Gardeners</h1>
+           <button className='btn btn-outline border-primary hover:text-white'>View All <FaArrowRight /></button>
+           </div>
             
             <div className='grid grid-cols-1  md:grid-cols-3 gap-5 mt-6'>
                 {
