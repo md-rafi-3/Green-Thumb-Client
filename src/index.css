@@ -11,6 +11,9 @@
     --color-secondary: #e07a5f;
     --color-base-200: #5b8c5a;
     --color-base-300:#ffffff;
+    --color-accent:#616B61;
+     --color-accent-content:#ffffff;
+     --color-neutral:#E3E8E3;
     
   }
 
@@ -22,6 +25,9 @@
     --color-base-100:#121612;
     --color-base-200: #5b8c5a;
     --color-base-300:#121612;
+    --color-accent:#ABBAAB;
+     --color-accent-content:#1C221C;
+     --color-neutral:#293229;
     
     
   }
@@ -31,4 +37,7 @@
      font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  transition: all 0.3s ease-in-out;
   }
+
+ 
