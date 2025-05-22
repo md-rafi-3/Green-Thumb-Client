@@ -5,13 +5,13 @@ const BrowseTips = () => {
   const tipsData=useLoaderData()
   console.log(tipsData);
     return (
-        <div className='w-11/12 mx-auto'>
+        <div className='w-11/12 mx-auto p-10'>
            
-           <h1 className='text-3xl font-bold py-5'>Browse Garden Tips</h1>
+           <h1 className='text-3xl font-bold '>Browse Garden Tips</h1>
            
            {/* filter */}
                
-               <div className="bg-accent-content p-6 border-[#3e743e20] border rounded-lg w-full ">
+               <div className="bg-accent-content p-6 mt-5 border-[#3e743e20] border rounded-lg w-full ">
       <h2 className="text-lg font-semibold mb-2">Filter Tips</h2>
       <div className="mb-2 text-sm text-accent">Difficulty Level</div>
       <div className="relative  max-w-xs ">
@@ -43,7 +43,7 @@ const BrowseTips = () => {
     <thead>
       <tr>
         
-        <th>Name</th>
+        <th>Image</th>
         <th>Title</th>
         <th>Category</th>
         <th>Difficulty</th>
@@ -64,6 +64,7 @@ const BrowseTips = () => {
                   src="https://img.daisyui.com/images/profile/demo/2@94.webp"
                   alt="Avatar Tailwind CSS Component" />
               </div>
+              
             </div>
             
           </div>
@@ -73,9 +74,12 @@ const BrowseTips = () => {
           
         </td>
         <td>{tips.category}</td>
-        <th>
+        <td>
+          {tips.difficulty}
+        </td>
+        <td>
           <button className="btn btn-ghost btn-xs">details</button>
-        </th>
+        </td>
       </tr>
         ))
       }
