@@ -5,7 +5,7 @@ const Guide = () => {
         <div className='mt-30 border-[#3e743e20] border shadow-sm rounded-2xl py-10'>
             <h1 className='text-3xl font-bold text-center '>Seasonal Gardening Guide</h1>
             
-           <div className='flex gap-5 md:flex-row flex-col w-11/12 mx-auto mt-7'>
+           <div className='flex gap-5 md:flex-row flex-col w-11/12 mx-auto mt-10'>
             <img className='rounded-2xl' src="https://i.ibb.co/VWSV3JYG/istockphoto-1427666202-612x612.jpg" alt="" />
              <div className='space-y-3'>
                     <h1 className='text-2xl font-bold'>What to Plant This Season</h1>

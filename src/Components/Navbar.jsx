@@ -9,10 +9,10 @@ import DarkMode from './DarkMode';
 const Navbar = () => {
     const links=<>
     <li><NavLink to="/"><MdOutlineHome />Home</NavLink></li>
-    <li><NavLink to="/"><LuUsersRound />Explore Gardeners</NavLink></li>
-    <li><NavLink to="/"><IoSearchOutline />Browse Tips </NavLink></li>
-    <li><NavLink to="/"><FaRegEdit />Share a Tips </NavLink></li>
-    <li><NavLink to="/"><FaRegUser />My Tips </NavLink></li>
+    <li><NavLink to="/gardeners"><LuUsersRound />Explore Gardeners</NavLink></li>
+    <li><NavLink to="/browseTips"><IoSearchOutline />Browse Tips </NavLink></li>
+    <li><NavLink to="/shareTips"><FaRegEdit />Share a Tips </NavLink></li>
+    <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li>
  
     </>
     return (

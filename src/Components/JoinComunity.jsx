@@ -2,7 +2,7 @@ import React from 'react';
 
 const JoinComunity = () => {
     return (
-        <div className='bg-[#548153] text-center p-20 space-y-3 text-white '>
+        <div className='bg-[#548153] text-center py-20 space-y-3 text-white '>
             <h1 className='text-3xl font-bold'>Join Our Gardening Community</h1>
             <p className='text-lg font-medium'>Connect with fellow gardeners, share your knowledge, and grow together. Create an account today to access exclusive content and features.</p>
             <div className='flex gap-5 justify-center items-center'>

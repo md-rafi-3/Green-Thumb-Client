@@ -16,7 +16,7 @@ const Home = () => {
                  <Guide></Guide>
                  <JoinComunity></JoinComunity>
             </main>
-            <Footer></Footer>
+            
         </div>
     );
 };
