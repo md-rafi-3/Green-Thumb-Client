@@ -2,13 +2,13 @@ import React, { use } from 'react';
 import FetCard from './FetCard';
 import { FaArrowRight } from 'react-icons/fa';
 
-const fetPromise=fetch("http://localhost:3000/fetGardeners").then(res=>res.json())
+const fetPromise=fetch("http://localhost:3000/gardeners/featured").then(res=>res.json())
 const FeturesGardeners = () => {
     const fetGardeners=use(fetPromise);
     console.log(fetGardeners)
    
     return (
-        <div  >
+        <div className='w-11/12 mx-auto'>
            <div className='flex justify-between items-center'> <h1 className='text-3xl font-bold '>Featured Gardeners</h1>
            <button className='btn btn-outline border-primary hover:text-white'>View All <FaArrowRight /></button>
            </div>

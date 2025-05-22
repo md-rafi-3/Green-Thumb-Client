@@ -22,7 +22,7 @@ const FetCard = ({fetGarden}) => {
     </div>
     
     <p className='text-accent text-sm'>{bio}</p>
-     <div className='flex flex-col md:flex-row md:items-center  gap-3 '>{expertise.map(expart=><div className="badge bg-neutral text-xs text-accent bg- badge-outline">{expart}</div>
+     <div className='flex flex-col md:flex-row md:items-center  gap-3 '>{expertise.map(expart=><div className="badge bg-neutral text-xs text-accent  badge-outline">{expart}</div>
       )}</div>
     <div className="card-actions text-accent text-sm mt-5">
      <p className='flex items-center  gap-1'><AiOutlineLike />{tipsCount} tips</p>
