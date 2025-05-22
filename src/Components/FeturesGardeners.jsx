@@ -8,7 +8,7 @@ const FeturesGardeners = () => {
     console.log(fetGardeners)
    
     return (
-        <div className='w-11/12 mx-auto'>
+        <div className='w-11/12 mx-auto mt-30'>
            <div className='flex justify-between items-center'> <h1 className='text-3xl font-bold '>Featured Gardeners</h1>
            <button className='btn btn-outline border-primary hover:text-white'>View All <FaArrowRight /></button>
            </div>
