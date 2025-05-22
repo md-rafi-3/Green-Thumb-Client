@@ -10,6 +10,7 @@ import ShareTips from "../Pages/ShareTips";
 import MyTips from "../Pages/MyTips";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
+import Loading from "../Components/Loading";
 
 export const router = createBrowserRouter([
   {
@@ -22,11 +23,14 @@ export const router = createBrowserRouter([
             {
                path:"gardeners",
                element:<Gardeners></Gardeners>,
-               loader:()=>fetch("http://localhost:3000/gardeners")
+               loader:()=>fetch("http://localhost:3000/gardeners"),
+               hydrateFallbackElement:<Loading></Loading>
             },
             {
               path:"browseTips",
-              element:<BrowseTips></BrowseTips>
+              element:<BrowseTips></BrowseTips>,
+              loader:()=>fetch("http://localhost:3000/tips"),
+              hydrateFallbackElement:<Loading></Loading>
             },
             {
               path:"shareTips",
