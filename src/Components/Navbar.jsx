@@ -3,7 +3,7 @@ import { FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { LuUsersRound } from 'react-icons/lu';
 import { MdLogin, MdOutlineHome } from 'react-icons/md';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import DarkMode from './DarkMode';
 
 const Navbar = () => {
@@ -41,7 +41,7 @@ const Navbar = () => {
   </div>
   <div className="navbar-end md:gap-3 items-center ">
     <DarkMode></DarkMode>
-    <button className='hidden md:flex px-2 py-1 rounded-lg items-center gap-2  btn-ghost hover:bg-secondary '><span><MdLogin></MdLogin></span>Login</button>
+   <Link to="/login"> <button className='hidden md:flex px-2 py-1 rounded-lg items-center gap-2  btn-ghost hover:bg-secondary '><span><MdLogin></MdLogin></span>Login</button></Link>
   </div>
 </div>
     );
