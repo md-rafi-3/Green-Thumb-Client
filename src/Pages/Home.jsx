@@ -4,6 +4,7 @@ import Footer from '../Components/Footer';
 import FeturesGardeners from '../Components/FeturesGardeners';
 import Tranding from '../Components/Tranding';
 import Guide from '../Components/Guide';
+import JoinComunity from '../Components/JoinComunity';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
                  <FeturesGardeners></FeturesGardeners>
                  <Tranding></Tranding>
                  <Guide></Guide>
+                 <JoinComunity></JoinComunity>
             </main>
             <Footer></Footer>
         </div>
