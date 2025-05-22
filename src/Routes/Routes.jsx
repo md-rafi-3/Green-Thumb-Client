@@ -21,7 +21,8 @@ export const router = createBrowserRouter([
           },
             {
                path:"gardeners",
-               element:<Gardeners></Gardeners> 
+               element:<Gardeners></Gardeners>,
+               loader:()=>fetch("http://localhost:3000/gardeners")
             },
             {
               path:"browseTips",
