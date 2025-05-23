@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { LuUsersRound } from 'react-icons/lu';
 import { MdLogin, MdOutlineHome } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
 import DarkMode from './DarkMode';
+import { AuthContext } from '../Context/AuthContext';
 
 const Navbar = () => {
+  const {user}=useContext(AuthContext);
     const links=<>
     <li><NavLink to="/"><MdOutlineHome />Home</NavLink></li>
     <li><NavLink to="/gardeners"><LuUsersRound />Explore Gardeners</NavLink></li>
@@ -41,7 +43,11 @@ const Navbar = () => {
   </div>
   <div className="navbar-end md:gap-3 items-center ">
     <DarkMode></DarkMode>
-   <Link to="/login"> <button className='hidden md:flex px-2 py-1 rounded-lg items-center gap-2  btn-ghost hover:bg-secondary '><span><MdLogin></MdLogin></span>Login</button></Link>
+  <Link to="/login">
+    <button className='flex items-center gap-1 px-3 py-3 hover:bg-secondary rounded-lg hover:text-white'><MdLogin />Login</button>
+  </Link>
+
+
   </div>
 </div>
     );
