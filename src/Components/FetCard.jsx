@@ -16,12 +16,13 @@ const FetCard = ({fetGarden}) => {
     <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
   </div>
 </div>
-       <div><h1 className='text-xl font-semibold'>{name}</h1>
+       <div><h1 className='text-xl font-semibold'>{name} &nbsp; <button className="btn btn-outline btn-xs">Follow</button></h1>
        <p className='text-sm'>{location}</p>
        </div>
     </div>
     
     <p className='text-accent text-sm'>{bio}</p>
+      <p className=' text-accent'> Expertise:</p>
      <div className='flex flex-col md:flex-row md:items-center  gap-3 '>{expertise.map(expart=><div className="badge bg-neutral text-xs text-accent  badge-outline">{expart}</div>
       )}</div>
     <div className="card-actions text-accent text-sm mt-5">

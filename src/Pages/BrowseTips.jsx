@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaEye } from 'react-icons/fa';
+import { TbListDetails } from 'react-icons/tb';
+
 import { Link, useLoaderData } from 'react-router';
 
 const BrowseTips = () => {
   const tipsData=useLoaderData()
   console.log(tipsData);
+    const [difficulty, setDifficulty] = useState("");
+
+    console.log(difficulty)
+    
+     const filteredTips = difficulty
+    ? tipsData.filter(tip => tip.difficulty === difficulty)
+    : tipsData;
+
+    
+     
     return (
         <div className='w-11/12 mx-auto p-10'>
            
@@ -14,22 +27,13 @@ const BrowseTips = () => {
                <div className="bg-accent-content p-6 mt-5 border-[#3e743e20] border rounded-lg w-full ">
       <h2 className="text-lg font-semibold mb-2">Filter Tips</h2>
       <div className="mb-2 text-sm text-accent">Difficulty Level</div>
-      <div className="relative  max-w-xs ">
-        <select
-         
-          
-          className="block w-full appearance-none bg-accent-content border border-gray-700  py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-primary"
-        >
-          
-            <option>All Levels</option>
-            <option>Easy</option>
-            <option>Medium</option>
-            <option>Hard</option>
-         
-        </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-          ▼
-        </div>
+      <div className=" max-w-xs ">
+       <select  defaultValue="" className="select *:text-accent text-accent  w-full" name='difficulty' onChange={(e) => setDifficulty(e.target.value)}  value={difficulty}>
+                            <option disabled={true}>Select difficulty level</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
       </div>
     </div>
           
@@ -53,7 +57,7 @@ const BrowseTips = () => {
     <tbody>
       {/* row 1 */}
       {
-        tipsData.map(tips=>(
+        filteredTips.map(tips=>(
           <tr>
         
         <td>
@@ -78,7 +82,7 @@ const BrowseTips = () => {
           {tips.difficulty}
         </td>
         <td>
-         <Link to={`/tipsDetails/${tips._id}`}><button  className="btn btn-ghost btn-xs">details</button></Link>
+         <Link to={`/tipsDetails/${tips._id}`}><button  className="btn btn-ghost btn-xs"><TbListDetails />See More  </button></Link>
         </td>
       </tr>
         ))
