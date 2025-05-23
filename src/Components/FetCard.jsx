@@ -5,8 +5,28 @@ import { FaRegHeart } from 'react-icons/fa';
 import { SlUserFollow } from 'react-icons/sl';
 
 const FetCard = ({fetGarden}) => {
-    const {profilePhoto,name,location,followersCount,bio,tipsCount,expertise
-}=fetGarden;
+   
+   if (
+  !fetGarden?.profilePhoto ||
+  !fetGarden?.name ||
+  !fetGarden?.location ||
+  !fetGarden?.bio ||
+  !fetGarden?.email ||
+  !fetGarden?.expertise
+) {
+  return null; 
+}
+
+const {
+  profilePhoto,
+  name,
+  location,
+  followersCount,
+  bio,
+  tipsCount,
+  expertise
+} = fetGarden;
+
     
     return (
        <div className="card bg-accent-content border-[#3e743e20] border p-5 shadow-sm">
