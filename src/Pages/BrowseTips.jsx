@@ -44,9 +44,9 @@ const BrowseTips = () => {
            {/* filter end */}
 
 
-           <div className='mt-5'>
+           <div className='mt-5 '>
              <div className="overflow-x-auto">
-  <table className="table bg-accent-content border-[#3e743e20] border">
+  <table className="table bg-accent-content border-[#3e743e20] border ">
     {/* head */}
     <thead>
       <tr>

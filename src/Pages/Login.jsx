@@ -1,23 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../Context/AuthContext';
 
 const Login = () => {
+  const {loginUser}=useContext(AuthContext);
+  const handleLogin=(e)=>{
+    e.preventDefault()
+    const email=e.target.email.value;
+    const password=e.target.password.value;
+    console.log(email,password)
+    // email pass login
+    loginUser(email,password).then(result=>{
+      console.log(result.user)
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
     return (
-        <div className='h-[90vh] w-11/12 mx-auto flex items-center justify-center'>
+        <div className='p-10 w-11/12 mx-auto flex items-center justify-center'>
              <div className="card  w-full max-w-[400px] bg-accent-content border-[#3e743e20] bordert shadow-2xl">
                <div className='pt-5'>
                  <h1 className='text-2xl font-bold text-center'>Welcome Back</h1>
                 <p className='text-sm text-center text-accent'>Sign in to access your account</p>
                </div>
       <div className="card-body ">
-        <fieldset className="fieldset">
+        <form onSubmit={handleLogin} className="fieldset">
           <label className="label">Email</label>
           <input type="email" className="input w-full" placeholder="Your email address" name='email' />
           <label className="label">Password</label>
           <input type="password" className="input w-full" placeholder="Your password" name='password' />
           <div><a className="link link-hover text-accent">Forgot password?</a></div>
           <button className="btn btn-primary mt-4">Login</button>
-        </fieldset>
+        </form>
 
          <div className="divider text-accent">Or continue with</div>
          <button className="btn bg-white text-black border-[#e5e5e5]">

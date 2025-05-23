@@ -21,7 +21,7 @@ const SignUp = () => {
 
 
     return (
-        <div className='h-[100vh] w-11/12 mx-auto flex items-center justify-center '>
+        <div className=' w-11/12 mx-auto flex items-center justify-center p-10'>
              <div className="card  w-full max-w-[400px] bg-accent-content border-[#3e743e20] bordert shadow-2xl">
                <div className='pt-5'>
                  <h1 className='text-2xl font-bold text-center'>Create an Account</h1>

@@ -2,17 +2,20 @@ import React, { use } from 'react';
 import { AiOutlineLike } from 'react-icons/ai';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaRegCircleUser } from 'react-icons/fa6';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import { LuCalendarFold } from 'react-icons/lu';
 import { SlUserFollow } from 'react-icons/sl';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 
 const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
+
 
 
 
 const TipsDetails = () => {
     const authorData = use(authorPromise);
     const data = useLoaderData()
+    const navigate=useNavigate()
     const {
         availability,
         category,
@@ -43,19 +46,22 @@ const TipsDetails = () => {
     console.log("this is real author", realAuthor)
     return (
         <div className='w-11/12 mx-auto py-10'>
+            <button className='flex items-center p-3 hover:bg-secondary gap-1 rounded-sm' onClick={()=>navigate(-1)}><IoMdArrowRoundBack /> Back</button>
             {/* container */}
-            <div className='flex gap-5 md:flex-row flex-col'>
+            <div className='flex gap-5 mt-5 md:flex-row flex-col'>
                 {/* left */}
                 <div className='space-y-3 max-w-3xl'>
                     <img className='rounded-xl w-full' src={photo} alt="" />
                     <h1 className='text-3xl fnt-bold'>{title}</h1>
-                    <div className='flex items-center gap-3 *:flex *:items-center *:gap-1 *:text-sm *:text-accent'>
-                        <h2 ><LuCalendarFold />Posted on {formattedDate}</h2>
-                        <h2><FaRegCircleUser /> By {name}</h2>
+                    <div className=' gap-3 flex md:flex-row flex-col '>
+                        <h2 className='flex items-center text-accent gap-1' ><LuCalendarFold />Posted on {formattedDate}</h2>
+                        <div className='flex items-center gap-3 *:flex *:items-center *:gap-1 *:text-sm *:text-accent'>
+                            <h2><FaRegCircleUser /> By {name}</h2>
 
                         <h2><FaRegHeart />
                         
                         {likeCount} likes</h2>
+                        </div>
                     </div>
 
                     <div className='flex gap-2'> 
