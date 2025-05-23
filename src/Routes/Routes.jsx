@@ -11,6 +11,7 @@ import MyTips from "../Pages/MyTips";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import Loading from "../Components/Loading";
+import TipsDetails from "../Pages/TipsDetails";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ export const router = createBrowserRouter([
               element:<BrowseTips></BrowseTips>,
               loader:()=>fetch("http://localhost:3000/tips"),
               hydrateFallbackElement:<Loading></Loading>
+            },
+            {
+              path:"tipsDetails/:id",
+              loader:({params})=>fetch(`http://localhost:3000/tips/${params.id}`),
+              element:<TipsDetails></TipsDetails>
             },
             {
               path:"shareTips",

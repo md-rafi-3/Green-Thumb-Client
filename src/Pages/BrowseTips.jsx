@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 
 const BrowseTips = () => {
   const tipsData=useLoaderData()
@@ -78,7 +78,7 @@ const BrowseTips = () => {
           {tips.difficulty}
         </td>
         <td>
-          <button className="btn btn-ghost btn-xs">details</button>
+         <Link to={`/tipsDetails/${tips._id}`}><button  className="btn btn-ghost btn-xs">details</button></Link>
         </td>
       </tr>
         ))
