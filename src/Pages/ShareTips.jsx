@@ -13,7 +13,7 @@ const ShareTips = () => {
         const formData = new FormData(form)
         const newTips = Object.fromEntries(formData);
          newTips.createdAt = new Date().toISOString();
-         newTips.likeCount="0";
+         newTips.likeCount=0;
         console.log(newTips)
 
 

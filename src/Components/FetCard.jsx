@@ -2,6 +2,7 @@ import React from 'react';
 import { AiOutlineLike } from 'react-icons/ai';
 
 import { FaRegHeart } from 'react-icons/fa';
+import { SlUserFollow } from 'react-icons/sl';
 
 const FetCard = ({fetGarden}) => {
     const {profilePhoto,name,location,followersCount,bio,tipsCount,expertise
@@ -13,10 +14,10 @@ const FetCard = ({fetGarden}) => {
     <div className='flex items-center gap-3'>
        <div className="avatar">
   <div className="w-12 rounded-full">
-    <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+    <img src={profilePhoto} />
   </div>
 </div>
-       <div><h1 className='text-xl font-semibold'>{name} &nbsp; <button className="btn btn-outline btn-xs">Follow</button></h1>
+       <div><h1 className='text-xl font-semibold'>{name} &nbsp; <button className="btn btn-outline btn-xs">Follow <SlUserFollow /></button></h1>
        <p className='text-sm'>{location}</p>
        </div>
     </div>

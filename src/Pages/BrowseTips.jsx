@@ -7,13 +7,16 @@ import { Link, useLoaderData } from 'react-router';
 const BrowseTips = () => {
   const tipsData=useLoaderData()
   console.log(tipsData);
-    const [difficulty, setDifficulty] = useState("");
+    const [difficulty, setDifficulty] = useState("All");
 
     console.log(difficulty)
+
+   
     
-     const filteredTips = difficulty
-    ? tipsData.filter(tip => tip.difficulty === difficulty)
-    : tipsData;
+       const filteredTips = difficulty === "All"
+  ? tipsData
+  : tipsData.filter(tip => tip.difficulty === difficulty);
+
 
     
      
@@ -28,8 +31,9 @@ const BrowseTips = () => {
       <h2 className="text-lg font-semibold mb-2">Filter Tips</h2>
       <div className="mb-2 text-sm text-accent">Difficulty Level</div>
       <div className=" max-w-xs ">
-       <select  defaultValue="" className="select *:text-accent text-accent  w-full" name='difficulty' onChange={(e) => setDifficulty(e.target.value)}  value={difficulty}>
+       <select   className="select *:text-accent text-accent  w-full" name='difficulty' onChange={(e) => setDifficulty(e.target.value)}   value={difficulty}>
                             <option disabled={true}>Select difficulty level</option>
+                            <option value="All">All</option>
                             <option value="Easy">Easy</option>
                             <option value="Medium">Medium</option>
                             <option value="Hard">Hard</option>
@@ -65,7 +69,7 @@ const BrowseTips = () => {
             <div className="avatar">
               <div className="mask mask-squircle h-12 w-12">
                 <img
-                  src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                  src={tips.photo}
                   alt="Avatar Tailwind CSS Component" />
               </div>
               
