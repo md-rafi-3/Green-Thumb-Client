@@ -47,9 +47,9 @@ const TipsCard = ({ tips }) => {
                 <div className="flex items-center justify-between mt-auto pt-4  ">
 
 
-                    <p className='flex text-accent text-sm gap-1 items-center'><FaHeart color='red'></FaHeart>{likes} likes</p>
+                    <p className='flex text-accent text-sm gap-1 items-center'><FaHeart ></FaHeart>{likes} likes</p>
 
-                    <Link > <button className="  font-semibold text-sm rounded  btn btn-outline text-accent hover:bg-secondary hover:text-white hover:border-secondary bg-neutral">
+                    <Link to={`/tipsDetails/${tips._id}`} > <button className="  font-semibold text-sm rounded  btn btn-outline text-accent hover:bg-secondary hover:text-white hover:border-secondary bg-neutral">
                         View Details
                     </button></Link>
                 </div>

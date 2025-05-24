@@ -1,28 +1,59 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const {loginUser,googleLogin }=useContext(AuthContext);
    const [open, setOpen] = useState(false);
+
+ const handleEye = () => {
+    setOpen(!open);
+  };
+
   const handleLogin=(e)=>{
     e.preventDefault()
     const email=e.target.email.value;
     const password=e.target.password.value;
     console.log(email,password)
     // email pass login
-    loginUser(email,password).then(result=>{
-      console.log(result.user)
+    loginUser(email,password).then(()=>{
+     
+      Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Your work has been saved",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+    
     }).catch((error) => {
-      console.log(error);
+      const errorMessage=error.code;
+     Swal.fire({
+  title: errorMessage,
+  icon: "error",
+  draggable: true
+});
     })
   }
 
   const handleGoogleLogin=()=>{
   googleLogin().then(()=>{
-    alert("login success")
+   Swal.fire({
+               position: "center",
+               icon: "success",
+               title: "Your work has been saved",
+               showConfirmButton: false,
+               timer: 1500
+             });
   }).catch((error) => {
-    console.log(error)
+   const errorMessage=error.code;
+     Swal.fire({
+  title: errorMessage,
+  icon: "error",
+  draggable: true
+});
   })
   }
     return (
@@ -37,7 +68,18 @@ const Login = () => {
           <label className="label">Email</label>
           <input type="email" className="input w-full" placeholder="Your email address" name='email' />
           <label className="label">Password</label>
-          <input type="password" className="input w-full" placeholder="Your password" name='password' />
+          
+          <div className='relative'>
+           <input  type={`${open ? "text" : "password"}`} required className="input w-full" placeholder="Your password" name='password' />
+
+            <button type='button'
+                onClick={handleEye}
+                className="btn btn-xs border-0 absolute top-2 right-3 bg-transparent "
+              >
+                {open ? <FaEyeSlash color='white' /> : <FaEye color="white" />}
+              </button>
+          </div>
+
           <div><a className="link link-hover text-accent">Forgot password?</a></div>
           <button className="btn btn-primary mt-4">Login</button>
         </form>

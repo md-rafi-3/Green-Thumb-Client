@@ -1,6 +1,8 @@
-import React from 'react';
+import React  from 'react';
+import { AuthContext } from '../Context/AuthContext';
 
 const JoinComunity = () => {
+    
     return (
         <div className='bg-[#548153] text-center py-20 space-y-3 text-white '>
             <h1 className='text-3xl font-bold'>Join Our Gardening Community</h1>

@@ -44,12 +44,12 @@ const ShareTips = () => {
                 <div className="card-body ">
                     <form onSubmit={handleAddTips} className="fieldset ">
                         <label className="label">Title</label>
-                        <input type="text" className="input w-full" placeholder="Enter a descriptive title" name='title' />
+                        <input required type="text" className="input w-full" placeholder="Enter a descriptive title" name='title' />
                         <label className="label">Topic</label>
-                        <input type="text" className="input w-full" placeholder="e.g. Composting, Seeds & Planting, Pest Control" name='topic' />
+                        <input required type="text" className="input w-full" placeholder="e.g. Composting, Seeds & Planting, Pest Control" name='topic' />
                         <label className="label">Difficulty Level</label>
 
-                        <select defaultValue="Select difficulty level" className="select *:text-accent text-accent  w-full" name='difficulty'>
+                        <select defaultValue="Easy" className="select *:text-accent text-accent  w-full" name='difficulty'>
                             <option disabled={true}>Select difficulty level</option>
                             <option value="Easy">Easy</option>
                             <option value="Medium">Medium</option>
@@ -57,15 +57,15 @@ const ShareTips = () => {
                         </select>
 
                         <label className="label">Description</label>
-                        <textarea className="textarea w-full" placeholder="Provide detailed information about your garden tip" name='description'></textarea>
+                        <textarea required className="textarea w-full" placeholder="Provide detailed information about your garden tip" name='description'></textarea>
 
                         <label className="label">Image URL</label>
-                        <input type="text" className="input w-full" placeholder="Enter the URL for an image that represents your tip" name='photo' />
+                        <input required type="text" className="input w-full" placeholder="Enter the URL for an image that represents your tip" name='photo' />
 
 
                         <label className="label">Category</label>
 
-                        <select defaultValue="Select a category" className="select *:text-accent text-accent  w-full" name='category'>
+                        <select  defaultValue="Urban Gardening" className="select *:text-accent text-accent  w-full" name='category'>
                             <option disabled={true}>Select a category</option>
                             <option value="urban-gardening">Urban Gardening</option>
                             <option value="permaculture">Permaculture</option>

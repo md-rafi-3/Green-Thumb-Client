@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Banner from '../Components/Banner';
 import Footer from '../Components/Footer';
 import FeturesGardeners from '../Components/FeturesGardeners';
 import Tranding from '../Components/Tranding';
 import Guide from '../Components/Guide';
 import JoinComunity from '../Components/JoinComunity';
+import { AuthContext } from '../Context/AuthContext';
 
 const Home = () => {
+    const {user}=useContext(AuthContext)
     return (
         <div>
             <Banner></Banner>
@@ -14,7 +16,7 @@ const Home = () => {
                  <FeturesGardeners></FeturesGardeners>
                  <Tranding></Tranding>
                  <Guide></Guide>
-                 <JoinComunity></JoinComunity>
+                 {!user&&<JoinComunity></JoinComunity>}
             </main>
             
         </div>

@@ -1,9 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+
 
 const SignUp = () => {
-  const { createUser,updatedUser,googleLogin } = useContext(AuthContext);
+  const { createUser, updatedUser, googleLogin } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+
+
+  const handleEye = () => {
+    setOpen(!open);
+  };
+
 
   const handleSignUp = (e) => {
     e.preventDefault()
@@ -12,6 +22,44 @@ const SignUp = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, name, photo, password)
+
+
+    // validation
+    const upperCaseExp = /[A-Z]/.test(password);
+    const lowerCaseExp = /[a-z]/.test(password);
+    const lengthExp = password.length >= 6;
+
+
+    if (!lengthExp) {
+      Swal.fire({
+        title: "Password must be at least 6 characters long.",
+        icon: "error",
+        draggable: true
+      });
+      return;
+    }
+
+    if (!upperCaseExp) {
+
+      Swal.fire({
+        title: "Password must contain at least one uppercase letter.",
+        icon: "error",
+        draggable: true
+      });
+      return;
+    }
+    if (!lowerCaseExp) {
+      Swal.fire({
+        title: "Password must contain at least one lowercase letter.",
+        icon: "error",
+        draggable: true
+      });
+      return;
+    }
+
+
+
+
     createUser(email, password).then(result => {
 
       //  add to db
@@ -20,50 +68,66 @@ const SignUp = () => {
         displayName: name,
         photoURL: photo,
         tipsCount: 0,
-        followersCount:0,
-        status:"Active",
+        followersCount: 0,
+        status: "Active",
 
 
 
       }
 
-       updatedUser(userData).then(()=>{
+      updatedUser(userData).then(() => {
         fetch("http://localhost:3000/gardeners", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(userData)
-      }).then(res => res.json()).then(data => {
-        console.log("data added to db", data)
-        if (data.insertedId) {
-          alert("user added to db")
-        }
+          method: "POST",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify(userData)
+        }).then(res => res.json()).then(data => {
+          console.log("data added to db", data)
+          if (data.insertedId) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        })
+      }).catch((error) => {
+       const errorMessage=error.code;
+            Swal.fire({
+         title: errorMessage,
+         icon: "error",
+         draggable: true
+       });
       })
-       }).catch((error) => {
-        console.log(error)
-       })
 
-      
+
       console.log(result.user)
     }).catch((error) => {
-      console.log(error)
+     const errorMessage=error.code;
+          Swal.fire({
+       title: errorMessage,
+       icon: "error",
+       draggable: true
+     });
     })
   }
 
-  const handleGoogleLogin=()=>{
-    googleLogin().then(result=>{
-       console.log(result.user)
-       const userData={
-        email:result.user.email,
-        displayName:result.user.displayName,
-        photoURL:result.user.photoURL,
+  const handleGoogleLogin = () => {
+    googleLogin().then(result => {
+      console.log(result.user)
+      const userData = {
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL,
         tipsCount: 0,
-        followersCount:0,
-        status:"Active",
-       }
-       console.log("user info",userData)
-       fetch("http://localhost:3000/gardeners", {
+        followersCount: 0,
+        status: "Active",
+      }
+      console.log("user info", userData)
+      fetch("http://localhost:3000/gardeners", {
         method: "POST",
         headers: {
           "content-type": "application/json"
@@ -72,7 +136,13 @@ const SignUp = () => {
       }).then(res => res.json()).then(data => {
         console.log("data added to db", data)
         if (data.insertedId) {
-          alert("user added to db")
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
         }
       })
     }).catch((error) => {
@@ -91,13 +161,22 @@ const SignUp = () => {
         <div className="card-body ">
           <form onSubmit={handleSignUp} className="fieldset ">
             <label className="label">Name</label>
-            <input type="text" className="input w-full" placeholder="Your name" name='name' />
+            <input required type="text" className="input w-full" placeholder="Your name" name='name' />
             <label className="label">Photo</label>
-            <input type="text" className="input w-full" placeholder="Your photo URL" name='photo' />
+            <input  required type="text" className="input w-full" placeholder="Your photo URL" name='photo' />
             <label className="label">Email</label>
-            <input type="email" className="input w-full" placeholder="Your email address" name='email' />
+            <input  required type="email" className="input w-full" placeholder="Your email address" name='email' />
             <label className="label">Password</label>
-            <input type="password" className="input w-full" placeholder="Your password" name='password' />
+            <div className='relative'>
+              <input type={`${open ? "text" : "password"}`} required className="input w-full" placeholder="Your password" name='password' />
+
+              <button type='button'
+                onClick={handleEye}
+                className="btn btn-xs border-0 absolute top-2 right-3 bg-transparent "
+              >
+                {open ? <FaEyeSlash color='white' /> : <FaEye color="white" />}
+              </button>
+            </div>
 
             <button type='submit' className="btn btn-primary mt-4">Sign Up</button>
           </form>

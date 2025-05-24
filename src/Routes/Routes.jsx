@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
             {
               path:"tipsDetails/:id",
               loader:({params})=>fetch(`http://localhost:3000/tips/${params.id}`),
-              element:<TipsDetails></TipsDetails>
+              element:<PrivetRoute><TipsDetails></TipsDetails></PrivetRoute>
             },
             {
               path:"shareTips",
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
             {
               path:"myTips",
               element:<PrivetRoute><MyTips></MyTips></PrivetRoute>,
-              loader:()=>fetch("http://localhost:3000/tips"),
+              loader:()=>fetch("http://localhost:3000/tips/privet"),
               hydrateFallbackElement:<Loading></Loading>
             },
             {
