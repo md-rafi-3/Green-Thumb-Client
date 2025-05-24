@@ -46,7 +46,7 @@ const TipsDetails = () => {
     console.log("this is real author", realAuthor)
     return (
         <div className='w-11/12 mx-auto py-10'>
-            <button className='flex items-center p-3 hover:bg-secondary gap-1 rounded-sm' onClick={()=>navigate(-1)}><IoMdArrowRoundBack /> Back</button>
+            <button className='flex items-center p-3 hover:bg-secondary hover:text-white gap-1 rounded-sm' onClick={()=>navigate(-1)}><IoMdArrowRoundBack /> Back</button>
             {/* container */}
             <div className='flex gap-5 mt-5 md:flex-row flex-col'>
                 {/* left */}
@@ -64,7 +64,7 @@ const TipsDetails = () => {
                         </div>
                     </div>
 
-                    <div className='flex gap-2'> 
+                    <div className='flex gap-2 *:text-accent *:bg-neutral'> 
                         <h1 className='badge badge-outline '>{category}</h1>
                         <h1 className='badge badge-outline '>{topic}</h1>
                     </div>
