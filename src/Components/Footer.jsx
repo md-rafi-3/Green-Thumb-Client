@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router';
 import { FaFacebook, FaLinkedin, FaRegEdit, FaRegUser, FaYoutube } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { AuthContext } from '../Context/AuthContext';
 
 
 
 const Footer = () => {
+  const {user}=useContext(AuthContext);
  const links=<>
      <li><NavLink to="/">Home</NavLink></li>
      <li><NavLink to="/gardeners">Explore Gardeners</NavLink></li>
      <li><NavLink to="/browseTips">Browse Tips </NavLink></li>
-     <li><NavLink to="/shareTips">Share a Tips </NavLink></li>
-     <li><NavLink to="/myTips">My Tips </NavLink></li>
+    
   
      </>
 
@@ -54,6 +55,8 @@ const socialLinks = (
   <ul className='text-accent'>
     <li className="footer-title">Quick Links</li>
    {links}
+   {user&&<> <li><NavLink to="/shareTips">Share a Tips </NavLink></li>
+     <li><NavLink to="/myTips">My Tips </NavLink></li></>}
   </ul>
   <nav className='text-accent'> 
     <h6 className="footer-title">Legal</h6>

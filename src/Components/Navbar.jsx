@@ -8,15 +8,23 @@ import DarkMode from './DarkMode';
 import { AuthContext } from '../Context/AuthContext';
 
 const Navbar = () => {
-  const {user}=useContext(AuthContext);
+  const {user,userSignOut}=useContext(AuthContext);
+  console.log(user)
     const links=<>
     <li><NavLink to="/"><MdOutlineHome />Home</NavLink></li>
     <li><NavLink to="/gardeners"><LuUsersRound />Explore Gardeners</NavLink></li>
     <li><NavLink to="/browseTips"><IoSearchOutline />Browse Tips </NavLink></li>
-    <li><NavLink to="/shareTips"><FaRegEdit />Share a Tips </NavLink></li>
-    <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li>
+   
  
     </>
+
+    const handleSignOut=()=>{
+       userSignOut().then(()=>{
+        alert("sign out success")
+       }).catch((error) => {
+        console.log(error.code)
+       })
+    }
     return (
         <div className="navbar bg-base-100 shadow-sm md:px-5">
   <div className="navbar-start">
@@ -28,7 +36,12 @@ const Navbar = () => {
         className="menu  items-start menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
        <ul className='*:hover:bg-secondary'>
         {links}
-        <li><button className='flex rounded-lg items-center gap-2 '><span><MdLogin></MdLogin></span>Login / Sign Up</button></li>
+       {user&& <><li><NavLink to="/shareTips"><FaRegEdit />Share a Tips </NavLink></li>
+    <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li></>}
+
+        {
+          !user&&<li><button className='flex rounded-lg items-center gap-2 '><span><MdLogin></MdLogin></span>Login / Sign Up</button></li>
+        }
       </ul>
       
      </div>
@@ -39,13 +52,41 @@ const Navbar = () => {
   <div className="navbar-center hidden lg:flex">
     <ul className="menu text-base menu-horizontal px-1 *:ml-4">
      {links}
+     {user&& <><li><NavLink to="/shareTips"><FaRegEdit />Share a Tips </NavLink></li>
+    <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li></>}
     </ul>
   </div>
   <div className="navbar-end md:gap-3 items-center ">
     <DarkMode></DarkMode>
-  <Link to="/login">
+  
+  
+
+   {
+    user?(<div className="dropdown dropdown-end">
+      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS Navbar component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+      <ul
+        tabIndex={0}
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <li>
+          <a className="justify-between">
+            Profile
+            <span className="badge">New</span>
+          </a>
+        </li>
+        <li><a>Settings</a></li>
+        <li><button onClick={handleSignOut}>Logout</button></li>
+      </ul>
+    </div>):<Link to="/login">
     <button className='flex items-center gap-1 px-3 py-3 hover:bg-secondary rounded-lg hover:text-white'><MdLogin />Login</button>
   </Link>
+   }
+
 
 
   </div>
