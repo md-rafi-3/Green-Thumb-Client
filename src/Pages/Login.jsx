@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 
 const Login = () => {
   const {loginUser,googleLogin }=useContext(AuthContext);
+   const [open, setOpen] = useState(false);
   const handleLogin=(e)=>{
     e.preventDefault()
     const email=e.target.email.value;

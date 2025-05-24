@@ -12,6 +12,7 @@ import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import Loading from "../Components/Loading";
 import TipsDetails from "../Pages/TipsDetails";
+import PrivetRoute from "../PrivetRoute/PrivetRoute";
 
 export const router = createBrowserRouter([
   {
@@ -40,11 +41,11 @@ export const router = createBrowserRouter([
             },
             {
               path:"shareTips",
-              element:<ShareTips></ShareTips>
+              element:<PrivetRoute><ShareTips></ShareTips></PrivetRoute>
             },
             {
               path:"myTips",
-              element:<MyTips></MyTips>,
+              element:<PrivetRoute><MyTips></MyTips></PrivetRoute>,
               loader:()=>fetch("http://localhost:3000/tips"),
               hydrateFallbackElement:<Loading></Loading>
             },

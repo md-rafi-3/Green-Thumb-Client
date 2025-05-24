@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { TbListDetails } from 'react-icons/tb';
+import { FaEye } from 'react-icons/fa';
 
 
 const MyTips = () => {
@@ -55,7 +56,9 @@ const MyTips = () => {
           {tips.difficulty}
         </td>
         <td>
-         <Link to={`/tipsDetails/${tips._id}`}><button  className="btn btn-ghost btn-xs"><TbListDetails />See More  </button></Link>
+         <Link to={`/tipsDetails/${tips._id}`}><button  className="btn btn-ghost btn-xs"><FaEye />  </button></Link>
+         <Link to={`/tipsDetails/${tips._id}`}><button  className="btn btn-ghost btn-xs"><FaEye />  </button></Link>
+         <Link to={`/tipsDetails/${tips._id}`}><button  className="btn btn-ghost btn-xs"><FaEye />  </button></Link>
         </td>
       </tr>
         ))

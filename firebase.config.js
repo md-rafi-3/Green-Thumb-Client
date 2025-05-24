@@ -7,12 +7,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAD-GB_NUjXK5izB5DZMu6o62to6dV-88I",
-  authDomain: "green-thumb-auth.firebaseapp.com",
-  projectId: "green-thumb-auth",
-  storageBucket: "green-thumb-auth.firebasestorage.app",
-  messagingSenderId: "627232594469",
-  appId: "1:627232594469:web:1fc2a28486030f16177dcc"
+ apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
