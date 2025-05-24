@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useContext } from 'react';
 import { AiOutlineLike } from 'react-icons/ai';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaRegCircleUser } from 'react-icons/fa6';
@@ -6,6 +6,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { LuCalendarFold } from 'react-icons/lu';
 import { SlUserFollow } from 'react-icons/sl';
 import { useLoaderData, useNavigate } from 'react-router';
+import { AuthContext } from '../Context/AuthContext';
 
 const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
 
@@ -13,6 +14,7 @@ const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.j
 
 
 const TipsDetails = () => {
+    const {user}=useContext(AuthContext)
     const authorData = use(authorPromise);
     const data = useLoaderData()
     const navigate=useNavigate()
@@ -48,7 +50,7 @@ const TipsDetails = () => {
         <div className='w-11/12 mx-auto py-10'>
             <button className='flex items-center p-3 hover:bg-secondary hover:text-white gap-1 rounded-sm' onClick={()=>navigate(-1)}><IoMdArrowRoundBack /> Back</button>
             {/* container */}
-            <div className='flex gap-5 mt-5 md:flex-row flex-col'>
+            <div className='flex gap-5 mt-5 md:flex-row justify-between flex-col'>
                 {/* left */}
                 <div className='space-y-3 max-w-3xl'>
                     <img className='rounded-xl w-full' src={photo} alt="" />
@@ -80,38 +82,53 @@ const TipsDetails = () => {
                 {/* right */}
                 <div>
                     {/* up */}
-                    <div>
-                        <div className="card bg-accent-content border-[#3e743e20] border p-5 shadow-sm">
-                          <div className="card-body">
-                            <div className='flex items-center gap-3'>
-                               <div className="avatar">
-                          <div className="w-12 rounded-full">
-                            <img src={realAuthor.profilePhoto} />
-                          </div>
-                        </div>
-                               <div><h1 className='text-xl font-semibold'>{realAuthor.name} &nbsp; <button className="btn btn-outline btn-xs">Follow <SlUserFollow /></button></h1>
-                               <p className='text-sm'>{realAuthor.location}</p>
-                               </div>
-                            </div>
-                            
-                            <p className='text-accent text-sm'>{realAuthor.bio}</p>
-                              <p className=' text-accent'> Expertise:</p>
-                             <div className='flex flex-col md:flex-row md:items-center  gap-3 '>{realAuthor.expertise.map(expart=><div className="badge bg-neutral text-xs text-accent  badge-outline">{expart}</div>
-                              )}</div>
-                            <div className="card-actions text-accent text-sm mt-5">
-                             <p className='flex items-center  gap-1'><AiOutlineLike />{realAuthor.tipsCount} tips</p>
-                             <p  className='flex items-center gap-1'><FaRegHeart />{realAuthor.followersCount} followers</p>
-                              
-                            </div>
-                          </div>
-                        </div>
-                    </div>
+                    <div className="card bg-accent-content border-[#3e743e20] border p-5 shadow-sm">
+  <div className="card-body">
+    <div className='flex items-center gap-3'>
+      <div className="avatar">
+        <div className="w-12 rounded-full">
+          <img src={realAuthor?.photoURL || "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} />
+        </div>
+      </div>
+      <div>
+        <h1 className='text-xl font-semibold'>
+          {realAuthor?.displayName || "Anonymous"} &nbsp;
+          <button className="btn btn-outline btn-xs">Follow <SlUserFollow /></button>
+        </h1>
+        <p className='text-sm'>{realAuthor?.location || "Location not provided"}</p>
+      </div>
+    </div>
+
+    <p className='text-accent text-sm'>{realAuthor?.bio || "No bio available."}</p>
+    
+    <p className='text-accent'>Expertise:</p>
+    {
+      Array.isArray(realAuthor?.expertise) && realAuthor.expertise.length > 0 ?
+      (
+        <div className='flex flex-col md:flex-row md:items-center gap-3'>
+          {realAuthor.expertise.map((exp, idx) => (
+            <div key={idx} className="badge bg-neutral text-xs text-accent badge-outline">{exp}</div>
+          ))}
+        </div>
+      ) : (
+        <p className='text-sm text-accent'>No expertise listed.</p>
+      )
+    }
+
+    <div className="card-actions text-accent text-sm mt-5">
+      <p className='flex items-center gap-1'><AiOutlineLike />{realAuthor?.tipsCount || 0} tips</p>
+      <p className='flex items-center gap-1'><FaRegHeart />{realAuthor?.followersCount || 0} followers</p>
+    </div>
+  </div>
+</div>
                     {/* down */}
                     <div className='card bg-accent-content border-[#3e743e20] border p-5 shadow-sm mt-5'>
                         <h1 className='font-bold'>Actions</h1>
                         <div className="join join-vertical *:btn-outline *:border-[#3e743e20] mt-2 border-[#3e743e20] border">
   <button className="btn join-item">Browse More Tips</button>
-  <button className="btn join-item">Edit This Tip</button>
+   {user?.email === email && (
+    <button className="btn join-item">Edit This Tip</button>
+  )}
   <button className="btn join-item">Share Your Own Tip</button>
 </div>
                     </div>

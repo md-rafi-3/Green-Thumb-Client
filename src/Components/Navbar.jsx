@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
-import { LuUsersRound } from 'react-icons/lu';
+import { LuLogOut, LuUsersRound } from 'react-icons/lu';
 import { MdLogin, MdOutlineHome } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
 import DarkMode from './DarkMode';
@@ -10,6 +10,8 @@ import { AuthContext } from '../Context/AuthContext';
 const Navbar = () => {
   const {user,userSignOut}=useContext(AuthContext);
   console.log(user)
+  
+  
     const links=<>
     <li><NavLink to="/"><MdOutlineHome />Home</NavLink></li>
     <li><NavLink to="/gardeners"><LuUsersRound />Explore Gardeners</NavLink></li>
@@ -67,21 +69,25 @@ const Navbar = () => {
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src={user.photoURL} />
         </div>
       </div>
-      <ul
-        tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+      <div  tabIndex={0}
+        className="menu menu-sm dropdown-content border-[#3e743e20] bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+          <div><h3 className='text-sm'>{user.displayName}</h3>
+          <p className='text-xs'>{user.email}</p>
+          </div>
+        <ul>
         <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
+          <Link to="/myTips" >
+            <FaRegUser />Profile
+           
+          </Link>
         </li>
-        <li><a>Settings</a></li>
-        <li><button onClick={handleSignOut}>Logout</button></li>
+        
+        <li><button onClick={handleSignOut}><LuLogOut />Logout</button></li>
       </ul>
+      </div>
     </div>):<Link to="/login">
     <button className='flex items-center gap-1 px-3 py-3 hover:bg-secondary rounded-lg hover:text-white'><MdLogin />Login</button>
   </Link>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router';
+import { AuthContext } from '../Context/AuthContext';
 
 const ShareTips = () => {
+    const {user}=useContext(AuthContext);
    
     const navigate = useNavigate();
 
@@ -85,17 +87,18 @@ const ShareTips = () => {
                         </select>
 
 
-                        <div className='mt-3 bg-neutral py-5 px-3 rounded-md space-y-1'>
+                        <div className='mt-3 bg-neutral  py-5 px-3 rounded-md space-y-1'>
                             <h1 className='text-base text-accent'>Author Information (Read-only)</h1>
                             <div className='flex items-center gap-5'>
                                 <div>
                                     <label className="label">Name</label>
-                                    <input type="text" className="input w-full" placeholder="Author name" name='name' />
+                                    <input  defaultValue={user.displayName} readOnly type="text" className="input pointer-events-none cursor-not-allowed opacity-50 w-full" placeholder="Author name" name='name' />
                                 </div>
 
                                 <div>
                                     <label className="label">Email</label>
-                                    <input type="text" className="input w-full" placeholder="Author email" name='email' />
+                                    
+                                    <input  defaultValue={user.email} readOnly type="email" className="input pointer-events-none opacity-50 cursor-not-allowed  w-full" placeholder="Author email" name='email' />
                                 </div>
 
                             </div>

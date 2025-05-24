@@ -44,7 +44,9 @@ export const router = createBrowserRouter([
             },
             {
               path:"myTips",
-              element:<MyTips></MyTips>
+              element:<MyTips></MyTips>,
+              loader:()=>fetch("http://localhost:3000/tips"),
+              hydrateFallbackElement:<Loading></Loading>
             },
             {
               path:"login",
