@@ -1,11 +1,18 @@
-import React, { use } from 'react';
+import React, { use, useContext } from 'react';
 import FetCard from './FetCard';
 import { FaArrowRight } from 'react-icons/fa';
+import { AuthContext } from '../Context/AuthContext';
 
 const fetPromise=fetch("http://localhost:3000/gardeners/featured").then(res=>res.json())
 const FeturesGardeners = () => {
     const fetGardeners=use(fetPromise);
-    console.log(fetGardeners)
+    console.log("future",fetGardeners)
+    
+    const {user}=useContext(AuthContext);
+  
+ const gardeners=fetGardeners.filter(gar=>gar.email !==user?.email);
+ 
+ console.log("gardeners",gardeners)
    
     return (
         <div className='w-11/12 mx-auto mt-30'>
@@ -15,7 +22,7 @@ const FeturesGardeners = () => {
             
             <div className='grid grid-cols-1  md:grid-cols-3 gap-5 mt-6'>
                 {
-                    fetGardeners.map(fetGarden=><FetCard fetGarden={fetGarden}></FetCard>)
+                    gardeners.map(fetGarden=><FetCard fetGarden={fetGarden}></FetCard>)
                 }
             </div>
         </div>

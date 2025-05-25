@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 
 const Navbar = () => {
   const { user, userSignOut } = useContext(AuthContext);
-  console.log(user)
+  
 
 
   const links = <>
@@ -89,9 +89,7 @@ const Navbar = () => {
           user ? (<div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src={user.photoURL} />
+                <img src={user.photoURL|| "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} alt={user.displayName} />
               </div>
             </div>
             <div tabIndex={0}
