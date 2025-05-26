@@ -117,6 +117,7 @@ const SignUp = () => {
 
   const handleGoogleLogin = () => {
   googleLogin().then(result => {
+    
     const userData = {
       email: result.user.email,
       displayName: result.user.displayName,
@@ -192,7 +193,7 @@ const SignUp = () => {
 
               <button type='button'
                 onClick={handleEye}
-                className="btn btn-xs border-0 absolute top-2 right-3 bg-transparent "
+                className="btn btn-xs border-0 absolute top-2 right-3  "
               >
                 {open ? <FaEyeSlash color='white' /> : <FaEye color="white" />}
               </button>

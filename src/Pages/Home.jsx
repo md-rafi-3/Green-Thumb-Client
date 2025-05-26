@@ -7,8 +7,12 @@ import Guide from '../Components/Guide';
 import JoinComunity from '../Components/JoinComunity';
 import { AuthContext } from '../Context/AuthContext';
 
+
 const Home = () => {
-    const {user}=useContext(AuthContext)
+    const {user}=useContext(AuthContext);
+   
+
+    
     return (
         <div>
             <Banner></Banner>

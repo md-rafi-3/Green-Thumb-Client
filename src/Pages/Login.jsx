@@ -40,6 +40,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     googleLogin().then(result => {
+     
       const userData = {
         email: result.user.email,
         displayName: result.user.displayName,
@@ -49,7 +50,8 @@ const Login = () => {
         status: "Active",
       };
         
-      setUser(result.user)
+       setUser(result.user)
+      
       // Check if user already exists
       fetch(`http://localhost:3000/gardeners?email=${userData.email}`)
         .then(res => res.json())
@@ -110,7 +112,7 @@ const Login = () => {
 
             <button type='button'
                 onClick={handleEye}
-                className="btn btn-xs border-0 absolute top-2 right-3 bg-transparent "
+                className="btn btn-xs  border-0 absolute top-2 right-3  "
               >
                 {open ? <FaEyeSlash color='white' /> : <FaEye color="white" />}
               </button>

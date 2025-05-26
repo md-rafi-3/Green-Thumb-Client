@@ -5,7 +5,7 @@ import { FaRegCircleUser } from 'react-icons/fa6';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { LuCalendarFold } from 'react-icons/lu';
 import { SlUserFollow } from 'react-icons/sl';
-import { useLoaderData, useNavigate } from 'react-router';
+import { Link, useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 
 const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
@@ -19,11 +19,10 @@ const TipsDetails = () => {
     const data = useLoaderData()
     const navigate=useNavigate()
     const {
-        availability,
+        
         category,
         createdAt,
         description,
-        difficulty,
         email,
         likeCount,
         name,
@@ -125,11 +124,11 @@ const TipsDetails = () => {
                     <div className='card bg-accent-content border-[#3e743e20] border p-5 shadow-sm mt-5'>
                         <h1 className='font-bold'>Actions</h1>
                         <div className="join join-vertical *:btn-outline *:border-[#3e743e20] mt-2 border-[#3e743e20] border">
-  <button className="btn join-item">Browse More Tips</button>
+  <Link to="/browseTips" className="btn join-item"><button >Browse More Tips</button></Link>
    {user?.email === email && (
     <button className="btn join-item">Edit This Tip</button>
   )}
-  <button className="btn join-item">Share Your Own Tip</button>
+  <Link to="/shareTips" className="btn join-item"><button >Share Your Own Tip</button></Link>
 </div>
                     </div>
                 </div>

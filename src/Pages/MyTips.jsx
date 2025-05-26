@@ -25,6 +25,9 @@ const MyTips = () => {
 
   const [myTipsData, setMyTipsData] = useState(initialData);
 
+
+
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -59,9 +62,45 @@ const MyTips = () => {
 
 
 
+  // handle profile edit
+  const handleProfileUpdate = (e) => {
+    e.preventDefault()
+    const displayName = e.target.name.value;
+    const location = e.target.location.value;
+    const photoURL = e.target.photo.value;
+    const bio = e.target.bio.value;
+    const expertiseValue = e.target.expertise.value;
+   
+    const expertise= expertiseValue.split(/[\s,]+/).filter(Boolean);
+     console.log("input data", displayName, location, photoURL, bio, expertise)
+     
+
+     const updatedData={
+      displayName:displayName,
+      location:location,
+      photoURL:photoURL,
+      bio:bio,
+      expertise:expertise,
+      email:user.email
+     }
+
+    //  update profile in db
+    fetch("http://localhost:3000/gardeners",{
+      method:"PATCH",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(updatedData)
+    }).then(res=>res.json()).then(data=>{
+      console.log(data);
+    })
+  }
+
+
+
 
   return (
-    <div className='w-11/12 mx-auto p-10'>
+    <div className='w-11/12 mx-auto py-5'>
 
 
       <div className='flex md:flex-row flex-col items-center md:justify-start justify-center gap-3'>
@@ -81,92 +120,119 @@ const MyTips = () => {
 
           <button className='flex items-center btn btn-primary'> <FaRegEdit /> Edit Profile </button>
 
+
         </div>
+
+
       </div>
 
 
 
-        <div className="tabs mt-5  tabs-border">
-  <input type="radio" name="my_tabs_2" className="tab text-base font-bold" aria-label="Shared Tips" />
-  <div className="tab-content border-base-300 bg-base-100 p-10"> {/* table */}
-      <div>
-        {myTipsData.length < 1 ? (<div className='flex flex-col justify-center items-center space-y-3'>
+      <div className="tabs mt-5  tabs-border">
+        <input type="radio" name="my_tabs_2" className="tab text-base font-bold" aria-label="Shared Tips" />
+        <div className="tab-content border-base-300 bg-base-100 py-10"> {/* table */}
           <div>
-            <img className='max-w-96' src={noTipsImg} alt="" />
+            {myTipsData.length < 1 ? (<div className='flex flex-col justify-center items-center space-y-3'>
+              <div>
+                <img className='max-w-96' src={noTipsImg} alt="" />
+              </div>
+              <h1 className='text-2xl font-bold text-secondary'>No tips found..!</h1>
+              <p className='text-accent text-center '> Start by adding your first gardening tip...</p>
+              <Link to="/shareTips"><button className='btn btn-primary'><FaRegEdit />Share a Tip</button></Link>
+            </div>) : (<div className='mt-5 '>
+              <div className="overflow-x-auto">
+                <table className="table bg-accent-content border-[#3e743e20] border ">
+                  {/* head */}
+                  <thead>
+                    <tr>
+
+                      <th>Image</th>
+                      <th>Title</th>
+                      <th>Category</th>
+                      <th>Availability</th>
+                      <th>Likes</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* row 1 */}
+                    {
+                      myTipsData.map(tips => (
+                        <tr>
+
+                          <td>
+                            <div className="flex items-center gap-3">
+                              <div className="avatar">
+                                <div className="mask mask-squircle h-12 w-12">
+                                  <img
+                                    src={tips.photo}
+                                    alt="Avatar Tailwind CSS Component" />
+                                </div>
+
+                              </div>
+
+                            </div>
+                          </td>
+                          <td>
+                            {tips.title}
+
+                          </td>
+                          <td>{tips.category}</td>
+                          <td >
+                            <div className={`badge text-white ${tips.availability === "public"
+                              ? "bg-primary" : "bg-secondary"}`}>{tips.availability
+                                === "public" ? "Public" : "Hidden"}</div>
+                          </td>
+                          <td>{tips.likeCount}</td>
+                          <td>
+                            <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><FaEye />  </button></Link>
+                            <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><CiEdit /> </button></Link>
+                            <button onClick={() => handleDelete(tips._id)} className="btn btn-ghost btn-sm"><MdDelete color='red' /> </button>
+                          </td>
+                        </tr>
+
+                      ))
+                    }
+
+                  </tbody>
+
+                </table>
+              </div>
+            </div>)}
+
           </div>
-          <h1 className='text-2xl font-bold text-secondary'>No tips found..!</h1>
-          <p className='text-accent text-center '> Start by adding your first gardening tip...</p>
-          <Link to="/shareTips"><button className='btn btn-primary'><FaRegEdit />Share a Tip</button></Link>
-        </div>) : (<div className='mt-5 '>
-        <div className="overflow-x-auto">
-          <table className="table bg-accent-content border-[#3e743e20] border ">
-            {/* head */}
-            <thead>
-              <tr>
+          {/* table end */}</div>
 
-                <th>Image</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Availability</th>
-                <th>Likes</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              {
-                myTipsData.map(tips => (
-                  <tr>
 
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle h-12 w-12">
-                            <img
-                              src={tips.photo}
-                              alt="Avatar Tailwind CSS Component" />
-                          </div>
-
-                        </div>
-
-                      </div>
-                    </td>
-                    <td>
-                      {tips.title}
-
-                    </td>
-                    <td>{tips.category}</td>
-                    <td >
-                      <div className={`badge text-white ${tips.availability==="public"
-                        ? "bg-primary" : "bg-secondary"}`}>{tips.availability
-                          === "public" ? "Public" : "Hidden"}</div>
-                    </td>
-                    <td>{tips.likeCount}</td>
-                    <td>
-                      <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><FaEye />  </button></Link>
-                      <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><CiEdit /> </button></Link>
-                      <button onClick={() => handleDelete(tips._id)} className="btn btn-ghost btn-sm"><MdDelete color='red' /> </button>
-                    </td>
-                  </tr>
-                  
-                ))
-              }
-
-            </tbody>
-
-          </table>
-        </div>
-      </div>)}
 
       </div>
-      {/* table end */}</div>
 
+      {/* modal */}
+      <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>open modal</button>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h1 className='text-center text-3xl font-bold py-4 '>Update Your Profile</h1>
+          {/* modal body */}
+          <form onSubmit={handleProfileUpdate} className='fieldset'>
+            <label className="label">Name</label>
+            <input type="text" placeholder="Your name" className="input w-full" defaultValue={user?.displayName} name='name' />
+            <label className="label">Location</label>
+            <input name='location' defaultValue={realUser?.location} type="text" placeholder="Your location" className="input w-full" />
+            <label className="label">Photo</label>
+            <input type="text" defaultValue={user?.photoURL} placeholder="Your photo URL" name='photo' className="input w-full" />
+            <label className="label">Expertise</label>
+            <input type="text" name='expertise' placeholder="Your expertise" className="input w-full" />
+            <label className="label">Bio</label>
+            <textarea name='bio' className="textarea w-full" placeholder="Write a Bio"></textarea>
 
-  
-</div>
-      
+            <button type='submit' className='btn '>Update</button>
+          </form>
+          {/* modal body end */}
 
-     
+        </div>
+      </dialog>
+      {/* modal end */}
+
     </div>
 
   );

@@ -22,7 +22,8 @@ export const router = createBrowserRouter([
     errorElement:<Error></Error>,
     children:[
         {index:true,
-            element:<Home></Home>
+            element:<Home></Home>,
+            hydrateFallbackElement:<Loading></Loading>
           },
             {
                path:"gardeners",

@@ -21,7 +21,7 @@ const BrowseTips = () => {
     
      
     return (
-        <div className='w-11/12 mx-auto p-10'>
+        <div className='w-11/12 mx-auto py-10'>
            
            <h1 className='text-3xl font-bold '>Browse Garden Tips</h1>
            
