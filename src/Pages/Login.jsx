@@ -38,24 +38,59 @@ const Login = () => {
     })
   }
 
-  const handleGoogleLogin=()=>{
-  googleLogin().then(()=>{
-   Swal.fire({
-               position: "center",
-               icon: "success",
-               title: "Your work has been saved",
-               showConfirmButton: false,
-               timer: 1500
-             });
-  }).catch((error) => {
-   const errorMessage=error.code;
-     Swal.fire({
-  title: errorMessage,
-  icon: "error",
-  draggable: true
-});
-  })
-  }
+  const handleGoogleLogin = () => {
+    googleLogin().then(result => {
+      const userData = {
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL,
+        tipsCount: 0,
+        followersCount: 0,
+        status: "Active",
+      };
+  
+      // Check if user already exists
+      fetch(`http://localhost:3000/gardeners?email=${userData.email}`)
+        .then(res => res.json())
+        .then(existingUsers => {
+          if (existingUsers.length === 0) {
+            // Only add to DB if user doesn't exist
+            fetch("http://localhost:3000/gardeners", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json"
+              },
+              body: JSON.stringify(userData)
+            })
+            .then(res => res.json())
+            .then(data => {
+              if (data.insertedId) {
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Login successfully!",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              }
+            });
+          } else {
+            // Already exists
+            Swal.fire({
+              icon: "success",
+              title: "Welcome back!",
+              text: "Login successfully!",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+        });
+  
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+  
     return (
         <div className='p-10 w-11/12 mx-auto flex items-center justify-center'>
              <div className="card  w-full max-w-[400px] bg-accent-content border-[#3e743e20] bordert shadow-2xl">

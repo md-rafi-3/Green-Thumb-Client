@@ -62,11 +62,15 @@ const MyTips = () => {
 
 
       <div className='flex items-center gap-3'>
-        <img className='rounded-full' src={user.photoURL} alt="" />
-        <div>
-          <h1>{user.displayName}</h1>
-          <h1>{user.email}</h1>
-          <div>
+        <div className="avatar">
+  <div className="w-28 rounded-full">
+    <img src={user.photoURL} />
+  </div>
+</div>
+        <div className='space-y-1'>
+          <h1 className='text-2xl font-bold'>{user.displayName}</h1>
+          <h1 className='text-accent'>{user.email}</h1>
+          <div className='flex gap-3 text-accent'>
             <p>{realUser.followersCount} followers</p>
             <p>{realUser.followersCount} following</p>
             <p>{realUser.tipsCount} tips</p>

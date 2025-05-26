@@ -116,39 +116,57 @@ const SignUp = () => {
   }
 
   const handleGoogleLogin = () => {
-    googleLogin().then(result => {
-      console.log(result.user)
-      const userData = {
-        email: result.user.email,
-        displayName: result.user.displayName,
-        photoURL: result.user.photoURL,
-        tipsCount: 0,
-        followersCount: 0,
-        status: "Active",
-      }
-      console.log("user info", userData)
-      fetch("http://localhost:3000/gardeners", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(userData)
-      }).then(res => res.json()).then(data => {
-        console.log("data added to db", data)
-        if (data.insertedId) {
+  googleLogin().then(result => {
+    const userData = {
+      email: result.user.email,
+      displayName: result.user.displayName,
+      photoURL: result.user.photoURL,
+      tipsCount: 0,
+      followersCount: 0,
+      status: "Active",
+    };
+
+    // Check if user already exists
+    fetch(`http://localhost:3000/gardeners?email=${userData.email}`)
+      .then(res => res.json())
+      .then(existingUsers => {
+        if (existingUsers.length === 0) {
+          // Only add to DB if user doesn't exist
+          fetch("http://localhost:3000/gardeners", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json"
+            },
+            body: JSON.stringify(userData)
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.insertedId) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Account created successfully!",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
+          });
+        } else {
+          // Already exists
           Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Your work has been saved",
+            icon: "info",
+            title: "Welcome back!",
+            text: "You already have an account.",
             showConfirmButton: false,
             timer: 1500
           });
         }
-      })
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
+      });
+
+  }).catch((error) => {
+    console.log(error);
+  });
+};
 
 
   return (
