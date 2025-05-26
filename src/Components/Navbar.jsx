@@ -60,7 +60,7 @@ const Navbar = () => {
             className="menu  items-start menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
             <ul className='*:hover:bg-secondary'>
               {links}
-              {user && <><li><NavLink to="/shareTips"><FaRegEdit />Share a Tips </NavLink></li>
+              {user && <><li><NavLink to="/shareTips"><FaRegEdit />Share a Tip </NavLink></li>
                 <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li></>}
 
               {
@@ -76,7 +76,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu text-base menu-horizontal px-1 *:ml-4">
           {links}
-          {user && <><li><NavLink to="/shareTips"><FaRegEdit />Share a Tips </NavLink></li>
+          {user && <><li><NavLink to="/shareTips"><FaRegEdit />Share a Tip </NavLink></li>
             <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li></>}
         </ul>
       </div>

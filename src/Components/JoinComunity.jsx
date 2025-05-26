@@ -1,5 +1,6 @@
 import React  from 'react';
 import { AuthContext } from '../Context/AuthContext';
+import { Link } from 'react-router';
 
 const JoinComunity = () => {
     
@@ -8,8 +9,8 @@ const JoinComunity = () => {
             <h1 className='text-3xl font-bold'>Join Our Gardening Community</h1>
             <p className='text-lg font-medium'>Connect with fellow gardeners, share your knowledge, and grow together. Create an account today to access exclusive content and features.</p>
             <div className='flex gap-5 justify-center items-center'>
-                <button className='btn btn-primary'>Sign Up</button>
-                <button className='btn btn-secondary'>Login</button>
+               <Link to="/signUp"> <button className='btn btn-primary'>Sign Up</button></Link>
+               <Link to="/login"> <button className='btn btn-secondary'>Login</button></Link>
             </div>
         </div>
     );

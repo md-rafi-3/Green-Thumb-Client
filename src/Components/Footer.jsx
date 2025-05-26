@@ -55,7 +55,7 @@ const socialLinks = (
   <ul className='text-accent'>
     <li className="footer-title">Quick Links</li>
    {links}
-   {user&&<> <li><NavLink to="/shareTips">Share a Tips </NavLink></li>
+   {user&&<> <li><NavLink to="/shareTips">Share a Tip </NavLink></li>
      <li><NavLink to="/myTips">My Tips </NavLink></li></>}
   </ul>
   <nav className='text-accent'> 

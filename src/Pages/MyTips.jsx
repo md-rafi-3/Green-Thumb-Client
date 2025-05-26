@@ -6,12 +6,15 @@ import { FaEye, FaRegEdit } from 'react-icons/fa';
 import { CiEdit } from 'react-icons/ci';
 import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
+import noTipsImg from '../assets/Pets with halloween costumes-bro.png'
 
 const userDataPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
 const MyTips = () => {
   const userData = use(userDataPromise);
   const { user } = useContext(AuthContext);
   const tipsData = useLoaderData()
+
+  console.log(tipsData)
 
   const realUser = userData.find(real => real.email === user.email);
   console.log("real user", realUser)
@@ -61,13 +64,13 @@ const MyTips = () => {
     <div className='w-11/12 mx-auto p-10'>
 
 
-      <div className='flex items-center gap-3'>
+      <div className='flex md:flex-row flex-col items-center md:justify-start justify-center gap-3'>
         <div className="avatar">
-  <div className="w-28 rounded-full">
-    <img src={user.photoURL} />
-  </div>
-</div>
-        <div className='space-y-1'>
+          <div className="w-28 rounded-full">
+            <img src={user.photoURL} />
+          </div>
+        </div>
+        <div className='space-y-1 flex flex-col md:justify-start justyfy-center md:items-start items-center'>
           <h1 className='text-2xl font-bold'>{user.displayName}</h1>
           <h1 className='text-accent'>{user.email}</h1>
           <div className='flex gap-3 text-accent'>
@@ -81,7 +84,20 @@ const MyTips = () => {
         </div>
       </div>
 
-      {myTipsData.length < 1 ? (<div>No tips available</div>) : (<div className='mt-5 '>
+
+
+        <div className="tabs mt-5  tabs-border">
+  <input type="radio" name="my_tabs_2" className="tab text-base font-bold" aria-label="Shared Tips" />
+  <div className="tab-content border-base-300 bg-base-100 p-10"> {/* table */}
+      <div>
+        {myTipsData.length < 1 ? (<div className='flex flex-col justify-center items-center space-y-3'>
+          <div>
+            <img className='max-w-96' src={noTipsImg} alt="" />
+          </div>
+          <h1 className='text-2xl font-bold text-secondary'>No tips found..!</h1>
+          <p className='text-accent text-center '> Start by adding your first gardening tip...</p>
+          <Link to="/shareTips"><button className='btn btn-primary'><FaRegEdit />Share a Tip</button></Link>
+        </div>) : (<div className='mt-5 '>
         <div className="overflow-x-auto">
           <table className="table bg-accent-content border-[#3e743e20] border ">
             {/* head */}
@@ -91,7 +107,8 @@ const MyTips = () => {
                 <th>Image</th>
                 <th>Title</th>
                 <th>Category</th>
-                <th>Difficulty</th>
+                <th>Availability</th>
+                <th>Likes</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -119,15 +136,19 @@ const MyTips = () => {
 
                     </td>
                     <td>{tips.category}</td>
-                    <td>
-                      {tips.difficulty}
+                    <td >
+                      <div className={`badge text-white ${tips.availability==="public"
+                        ? "bg-primary" : "bg-secondary"}`}>{tips.availability
+                          === "public" ? "Public" : "Hidden"}</div>
                     </td>
+                    <td>{tips.likeCount}</td>
                     <td>
                       <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><FaEye />  </button></Link>
                       <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><CiEdit /> </button></Link>
                       <button onClick={() => handleDelete(tips._id)} className="btn btn-ghost btn-sm"><MdDelete color='red' /> </button>
                     </td>
                   </tr>
+                  
                 ))
               }
 
@@ -137,6 +158,15 @@ const MyTips = () => {
         </div>
       </div>)}
 
+      </div>
+      {/* table end */}</div>
+
+
+  
+</div>
+      
+
+     
     </div>
 
   );

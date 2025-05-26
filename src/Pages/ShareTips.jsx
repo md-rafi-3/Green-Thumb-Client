@@ -1,41 +1,62 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
+import Swal from 'sweetalert2';
 
 const ShareTips = () => {
-    const {user}=useContext(AuthContext);
-   
+    const { user } = useContext(AuthContext);
+
     const navigate = useNavigate();
 
-    
+
 
     const handleAddTips = (e) => {
         e.preventDefault()
         const form = e.target;
         const formData = new FormData(form)
         const newTips = Object.fromEntries(formData);
-         newTips.createdAt = new Date().toISOString();
-         newTips.likeCount=0;
+        newTips.createdAt = new Date().toISOString();
+        newTips.likeCount = 0;
         console.log(newTips)
 
 
         // add to db
-        fetch("http://localhost:3000/tips",{
-            method:"POST",
-            headers:{
-               "content-type": "application/json"
+        fetch("http://localhost:3000/tips", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
             },
-            body:JSON.stringify(newTips)
-        }).then(res=>res.json()).then(data=>{
-            console.log("added to db",data)
-            if(data.insertedId){
+            body: JSON.stringify(newTips)
+        }).then(res => res.json()).then(data => {
+            console.log("added to db", data)
+            if (data.insertedId) {
                  form.reset()
+                // alert
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Your work has been saved",
+                    showConfirmButton:true,
+                    confirmButtonText: "View Tips",
+                    timer:2000
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                      
+                       navigate("/myTips");
+                    } 
+                    else{
+                        navigate("/")
+                    }
+                });
+
+                
             }
         })
     }
 
     return (
-        <div className=' p-20 w-11/12 mx-auto flex items-center justify-center '>
+        <div className=' py-20 w-11/12 mx-auto flex items-center justify-center '>
             <div className="card  w-full max-w-xl bg-accent-content border-[#3e743e20] bordert shadow-2xl">
                 <div className='pt-5 px-5 space-y-2'>
                     <h1 className='text-3xl font-bold text-center'>Create a New Garden Tip</h1>
@@ -65,7 +86,7 @@ const ShareTips = () => {
 
                         <label className="label">Category</label>
 
-                        <select  defaultValue="Urban Gardening" className="select *:text-accent text-accent  w-full" name='category'>
+                        <select defaultValue="Urban Gardening" className="select *:text-accent text-accent  w-full" name='category'>
                             <option disabled={true}>Select a category</option>
                             <option value="urban-gardening">Urban Gardening</option>
                             <option value="permaculture">Permaculture</option>
@@ -92,19 +113,19 @@ const ShareTips = () => {
                             <div className='flex items-center gap-5'>
                                 <div>
                                     <label className="label">Name</label>
-                                    <input  defaultValue={user.displayName} readOnly type="text" className="input pointer-events-none cursor-not-allowed opacity-50 w-full" placeholder="Author name" name='name' />
+                                    <input defaultValue={user.displayName} readOnly type="text" className="input pointer-events-none cursor-not-allowed opacity-50 w-full" placeholder="Author name" name='name' />
                                 </div>
 
                                 <div>
                                     <label className="label">Email</label>
-                                    
-                                    <input  defaultValue={user.email} readOnly type="email" className="input pointer-events-none opacity-50 cursor-not-allowed  w-full" placeholder="Author email" name='email' />
+
+                                    <input defaultValue={user.email} readOnly type="email" className="input pointer-events-none opacity-50 cursor-not-allowed  w-full" placeholder="Author email" name='email' />
                                 </div>
 
                             </div>
                         </div>
                         <div className='flex items-center justify-end gap-5 mt-4'>
-                            <button onClick={()=>navigate(-1)} type="button" className='btn-outline btn'>Cancel</button>
+                            <button onClick={() => navigate(-1)} type="button" className='btn-outline btn'>Cancel</button>
                             <button type='submit' className="btn btn-primary ">Share Tip</button>
                         </div>
                     </form>

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 
 const SignUp = () => {
-  const { createUser, updatedUser, googleLogin } = useContext(AuthContext);
+  const { createUser, updatedUser,setUser, googleLogin } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
 
 
@@ -126,6 +126,8 @@ const SignUp = () => {
       status: "Active",
     };
 
+    setUser(result.user);
+
     // Check if user already exists
     fetch(`http://localhost:3000/gardeners?email=${userData.email}`)
       .then(res => res.json())
@@ -170,7 +172,7 @@ const SignUp = () => {
 
 
   return (
-    <div className=' w-11/12 mx-auto flex items-center justify-center p-10'>
+    <div className=' w-11/12 mx-auto flex items-center justify-center py-10'>
       <div className="card  w-full max-w-[400px] bg-accent-content border-[#3e743e20] bordert shadow-2xl">
         <div className='pt-5'>
           <h1 className='text-2xl font-bold text-center'>Create an Account</h1>

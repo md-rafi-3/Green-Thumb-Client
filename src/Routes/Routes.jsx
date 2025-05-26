@@ -13,11 +13,13 @@ import SignUp from "../Pages/SignUp";
 import Loading from "../Components/Loading";
 import TipsDetails from "../Pages/TipsDetails";
 import PrivetRoute from "../PrivetRoute/PrivetRoute";
+import Error from "../Pages/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement:<Error></Error>,
     children:[
         {index:true,
             element:<Home></Home>

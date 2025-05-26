@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 const Login = () => {
-  const {loginUser,googleLogin }=useContext(AuthContext);
+  const {loginUser,googleLogin,setUser }=useContext(AuthContext);
    const [open, setOpen] = useState(false);
 
  const handleEye = () => {
@@ -48,7 +48,8 @@ const Login = () => {
         followersCount: 0,
         status: "Active",
       };
-  
+        
+      setUser(result.user)
       // Check if user already exists
       fetch(`http://localhost:3000/gardeners?email=${userData.email}`)
         .then(res => res.json())
@@ -92,7 +93,7 @@ const Login = () => {
   };
   
     return (
-        <div className='p-10 w-11/12 mx-auto flex items-center justify-center'>
+        <div className='py-10  w-11/12 mx-auto flex items-center justify-center'>
              <div className="card  w-full max-w-[400px] bg-accent-content border-[#3e743e20] bordert shadow-2xl">
                <div className='pt-5'>
                  <h1 className='text-2xl font-bold text-center'>Welcome Back</h1>
