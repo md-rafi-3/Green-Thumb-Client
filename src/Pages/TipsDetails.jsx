@@ -1,12 +1,13 @@
-import React, { use, useContext } from 'react';
+import React, { use, useContext, useState } from 'react';
 import { AiOutlineLike } from 'react-icons/ai';
 import { FaRegHeart } from 'react-icons/fa';
 import { FaRegCircleUser } from 'react-icons/fa6';
-import { IoMdArrowRoundBack } from 'react-icons/io';
+import { IoMdArrowRoundBack, IoMdHeart } from 'react-icons/io';
 import { LuCalendarFold } from 'react-icons/lu';
 import { SlUserFollow } from 'react-icons/sl';
 import { Link, useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
+ import { ToastContainer, toast } from 'react-toastify';
 
 const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
 
@@ -14,9 +15,14 @@ const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.j
 
 
 const TipsDetails = () => {
+  const [like,setLike]=useState(false);
+  const data = useLoaderData()
+  const [likes, setLikes] = useState(data.likeCount);
+ 
+
     const {user}=useContext(AuthContext)
     const authorData = use(authorPromise);
-    const data = useLoaderData()
+    
     const navigate=useNavigate()
     const {
         
@@ -31,7 +37,11 @@ const TipsDetails = () => {
         topic,
         _id
     } = data;
+
+     
     console.log("tips data", data)
+
+    console.log(typeof likeCount)
 
     const date = new Date(createdAt);
 
@@ -45,8 +55,39 @@ const TipsDetails = () => {
 
     const realAuthor = authorData.find(author => author.email === data.email);
     console.log("this is real author", realAuthor)
+
+
+    const handleLike = () => {
+  const updatedLikeStatus = !like; // toggle like
+  const updatedLikeCount = updatedLikeStatus ? likes + 1 : likes - 1;
+
+  // UI Update
+  setLike(updatedLikeStatus);
+  setLikes(updatedLikeCount);
+
+  // Server Update
+  fetch("http://localhost:3000/tips/privet", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      likeCount: updatedLikeCount,
+      _id
+    })
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.modifiedCount) {
+        toast.success(like ? "Like removed" : "Tip liked!");
+      } 
+    });
+};
+      
+      console.log(like)
     return (
         <div className='w-11/12 mx-auto py-10'>
+          <ToastContainer></ToastContainer>
             <button className='flex items-center p-3 hover:bg-secondary hover:text-white gap-1 rounded-sm' onClick={()=>navigate(-1)}><IoMdArrowRoundBack /> Back</button>
             {/* container */}
             <div className='flex gap-5 mt-5 md:flex-row justify-between flex-col'>
@@ -61,7 +102,7 @@ const TipsDetails = () => {
 
                         <h2><FaRegHeart />
                         
-                        {likeCount} likes</h2>
+                        {likes} likes</h2>
                         </div>
                     </div>
 
@@ -75,7 +116,7 @@ const TipsDetails = () => {
                     </div>
 
                     <div className='flex justify-center items-center'>
-                        <button className='btn btn-primary text-white flex items-center'><FaRegHeart /> Like this Tip</button>
+                        {user?.email !== email &&<button onClick={handleLike} className={`btn btn-primary text-white flex items-center ${like?"bg-secondary":"bg-primary"}`}>{like?(<><IoMdHeart/> Liked</>):(<><FaRegHeart /> Like this Tip</>)}</button>}
                     </div>
                 </div>
                 {/* right */}
