@@ -9,7 +9,7 @@ const Error = () => {
         <div>
             <div><Navbar></Navbar></div>
             <div className=' justify-center flex-col flex items-center'>
-                <div className=' '><img className='max-w-xl' src={errorImg} alt="Not Found" />
+                <div className=' '><img className='md:max-w-lg' src={errorImg} alt="Not Found" />
                 
                 
                 </div>

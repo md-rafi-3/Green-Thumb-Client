@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, {  useContext } from 'react';
 import { FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { LuLogOut, LuUsersRound } from 'react-icons/lu';
@@ -8,8 +8,12 @@ import DarkMode from './DarkMode';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
 
+
 const Navbar = () => {
+  
   const { user, userSignOut } = useContext(AuthContext);
+
+
 
   
   
@@ -83,7 +87,7 @@ const Navbar = () => {
             <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li></>}
         </ul>
       </div>
-      <div className="navbar-end md:gap-3 items-center ">
+      <div className="navbar-end md:gap-3 gap-2 items-center ">
         <DarkMode></DarkMode>
 
 
@@ -92,7 +96,9 @@ const Navbar = () => {
           user ? (<div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={user.photoURL|| "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} alt={user.displayName} />
+                <img src={user?.photoURL|| "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} alt={user.displayName} 
+                  referrerPolicy="no-referrer"
+                />
               </div>
             </div>
             <div tabIndex={0}

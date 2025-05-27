@@ -58,7 +58,7 @@ const TipsDetails = () => {
 
 
     const handleLike = () => {
-  const updatedLikeStatus = !like; // toggle like
+  const updatedLikeStatus = !like; 
   const updatedLikeCount = updatedLikeStatus ? likes + 1 : likes - 1;
 
   // UI Update
@@ -116,7 +116,7 @@ const TipsDetails = () => {
                     </div>
 
                     <div className='flex justify-center items-center'>
-                        {user?.email !== email &&<button onClick={handleLike} className={`btn btn-primary text-white flex items-center ${like?"bg-secondary":"bg-primary"}`}>{like?(<><IoMdHeart/> Liked</>):(<><FaRegHeart /> Like this Tip</>)}</button>}
+                        {user?.email !== email &&<button onClick={handleLike} className={`btn  text-white flex items-center border-0 ${like?"bg-secondary":"bg-primary"}`}>{like?(<><IoMdHeart/> Liked</>):(<><FaRegHeart /> Like this Tip</>)}</button>}
                     </div>
                 </div>
                 {/* right */}

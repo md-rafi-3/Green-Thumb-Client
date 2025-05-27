@@ -1,5 +1,5 @@
 import React, { use, useContext, useState } from 'react';
-import { Link, useLoaderData, useNavigate } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { TbListDetails } from 'react-icons/tb';
 import { FaEye, FaRegEdit } from 'react-icons/fa';
@@ -11,10 +11,10 @@ import noTipsImg from '../assets/Pets with halloween costumes-bro.png'
 const userDataPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
 const MyTips = () => {
   const userData = use(userDataPromise);
-  const { user } = useContext(AuthContext);
+  const { user,setUser } = useContext(AuthContext);
   const tipsData = useLoaderData()
 
-  // const navigate=useNavigate()
+  
   console.log(tipsData)
 
   const realUser = userData.find(real => real.email === user.email);
@@ -85,6 +85,8 @@ const MyTips = () => {
       email:user.email
      }
 
+     setUser(updatedData)
+
     //  update profile in db
     fetch("http://localhost:3000/gardeners",{
       method:"PATCH",
@@ -121,7 +123,7 @@ const MyTips = () => {
       <div className='flex md:flex-row flex-col items-center md:justify-start justify-center gap-3'>
         <div className="avatar">
           <div className="w-28 rounded-full">
-            <img src={user.photoURL} />
+            <img src={user.photoURL}   referrerPolicy="no-referrer" />
           </div>
         </div>
         <div className='space-y-1 flex flex-col md:justify-start justyfy-center md:items-start items-center'>
@@ -149,7 +151,7 @@ const MyTips = () => {
           <div>
             {myTipsData.length < 1 ? (<div className='flex flex-col justify-center items-center space-y-3'>
               <div>
-                <img className='max-w-96' src={noTipsImg} alt="" />
+                <img className='md:max-w-96' src={noTipsImg} alt="" />
               </div>
               <h1 className='text-2xl font-bold text-secondary'>No tips found..!</h1>
               <p className='text-accent text-center '> Start by adding your first gardening tip...</p>
