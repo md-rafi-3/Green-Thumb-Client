@@ -1,5 +1,5 @@
 import React, { use, useContext, useState } from 'react';
-import { Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { TbListDetails } from 'react-icons/tb';
 import { FaEye, FaRegEdit } from 'react-icons/fa';
@@ -14,6 +14,7 @@ const MyTips = () => {
   const { user } = useContext(AuthContext);
   const tipsData = useLoaderData()
 
+  // const navigate=useNavigate()
   console.log(tipsData)
 
   const realUser = userData.find(real => real.email === user.email);
@@ -93,6 +94,20 @@ const MyTips = () => {
       body:JSON.stringify(updatedData)
     }).then(res=>res.json()).then(data=>{
       console.log(data);
+      if (data.modifiedCount) {
+                      
+                      // alert
+                      Swal.fire({
+                          position: "center",
+                          icon: "success",
+                          title: "Your work has been saved",
+                          showConfirmButton:true,
+                          confirmButtonText: "View Tips",
+                          timer:2000
+                      })
+      
+                      
+                  }
     })
   }
 
@@ -118,7 +133,7 @@ const MyTips = () => {
             <p>{realUser.tipsCount} tips</p>
           </div>
 
-          <button className='flex items-center btn btn-primary'> <FaRegEdit /> Edit Profile </button>
+          <button onClick={() => document.getElementById('my_modal_1').showModal()} className='flex items-center btn btn-primary'> <FaRegEdit /> Edit Profile </button>
 
 
         </div>
@@ -208,10 +223,11 @@ const MyTips = () => {
       </div>
 
       {/* modal */}
-      <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>open modal</button>
+     
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h1 className='text-center text-3xl font-bold py-4 '>Update Your Profile</h1>
+         
+          <h1 className='text-center text-3xl font-bold  '>Update Your Profile</h1>
           {/* modal body */}
           <form onSubmit={handleProfileUpdate} className='fieldset'>
             <label className="label">Name</label>
@@ -223,9 +239,10 @@ const MyTips = () => {
             <label className="label">Expertise</label>
             <input type="text" name='expertise' placeholder="Your expertise" className="input w-full" />
             <label className="label">Bio</label>
-            <textarea name='bio' className="textarea w-full" placeholder="Write a Bio"></textarea>
+            <textarea name='bio' defaultValue={realUser?.bio} className="textarea w-full" placeholder="Write a Bio"></textarea>
 
-            <button type='submit' className='btn '>Update</button>
+            <div onClick={() => document.getElementById('my_modal_1').close()} className='flex justify-end items-center gap-3 mt-3'><button type='button' className='btn border-primary btn-outline'>Cancel</button>
+              <button className='btn  btn-primary' onClick={() => document.getElementById('my_modal_1').close()}  type='submit' >Update</button></div>
           </form>
           {/* modal body end */}
 

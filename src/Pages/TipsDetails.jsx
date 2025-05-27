@@ -126,7 +126,7 @@ const TipsDetails = () => {
                         <div className="join join-vertical *:btn-outline *:border-[#3e743e20] mt-2 border-[#3e743e20] border">
   <Link to="/browseTips" className="btn join-item"><button >Browse More Tips</button></Link>
    {user?.email === email && (
-    <button className="btn join-item">Edit This Tip</button>
+    <Link className="btn join-item" to={`/updateTips/${_id}`}><button >Edit This Tip</button></Link>
   )}
   <Link to="/shareTips" className="btn join-item"><button >Share Your Own Tip</button></Link>
 </div>

@@ -14,6 +14,7 @@ import Loading from "../Components/Loading";
 import TipsDetails from "../Pages/TipsDetails";
 import PrivetRoute from "../PrivetRoute/PrivetRoute";
 import Error from "../Pages/Error";
+import UpdatedTips from "../Pages/UpdatedTips";
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +41,14 @@ export const router = createBrowserRouter([
             {
               path:"tipsDetails/:id",
               loader:({params})=>fetch(`http://localhost:3000/tips/${params.id}`),
-              element:<PrivetRoute><TipsDetails></TipsDetails></PrivetRoute>
+              element:<PrivetRoute><TipsDetails></TipsDetails></PrivetRoute>,
+              hydrateFallbackElement:<Loading></Loading>
+            },
+            {
+              path:"updateTips/:id",
+              element:<PrivetRoute><UpdatedTips></UpdatedTips></PrivetRoute>,
+             loader:({params})=>fetch(`http://localhost:3000/tips/${params.id}`),
+             hydrateFallbackElement:<Loading></Loading>
             },
             {
               path:"shareTips",
