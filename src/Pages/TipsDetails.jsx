@@ -4,7 +4,7 @@ import { FaRegHeart } from 'react-icons/fa';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { IoMdArrowRoundBack, IoMdHeart } from 'react-icons/io';
 import { LuCalendarFold } from 'react-icons/lu';
-import { SlUserFollow } from 'react-icons/sl';
+
 import { Link, useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
  import { ToastContainer, toast } from 'react-toastify';
@@ -133,7 +133,7 @@ const TipsDetails = () => {
       <div>
         <h1 className='text-xl font-semibold'>
           {realAuthor?.displayName || "Anonymous"} &nbsp;
-          <button className="btn btn-outline btn-xs">Follow <SlUserFollow /></button>
+         
         </h1>
         <p className='text-sm'>{realAuthor?.location || "Location not provided"}</p>
       </div>
@@ -156,7 +156,7 @@ const TipsDetails = () => {
     }
 
     <div className="card-actions text-accent text-sm mt-5">
-      <p className='flex items-center gap-1'><AiOutlineLike />{realAuthor?.tipsCount || 0} tips</p>
+      
       <p className='flex items-center gap-1'><FaRegHeart />{realAuthor?.followersCount || 0} followers</p>
     </div>
   </div>
