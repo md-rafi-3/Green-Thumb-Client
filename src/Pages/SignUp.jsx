@@ -67,7 +67,6 @@ const SignUp = () => {
         email: result.user.email,
         displayName: name,
         photoURL: photo,
-        tipsCount: 0,
         followersCount: 0,
         status: "Active",
 
@@ -122,7 +121,6 @@ const SignUp = () => {
       email: result.user.email,
       displayName: result.user.displayName,
       photoURL: result.user.photoURL,
-      tipsCount: 0,
       followersCount: 0,
       status: "Active",
     };

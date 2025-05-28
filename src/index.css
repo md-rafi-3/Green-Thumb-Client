@@ -48,4 +48,9 @@
    color: #3e743e;
    
   }
+
+
+  html{
+   scroll-behavior: smooth;
+  }
  

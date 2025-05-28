@@ -45,7 +45,6 @@ const Login = () => {
         email: result.user.email,
         displayName: result.user.displayName,
         photoURL: result.user.photoURL,
-        tipsCount: 0,
         followersCount: 0,
         status: "Active",
       };

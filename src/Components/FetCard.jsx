@@ -1,16 +1,24 @@
-import React, { useContext } from 'react';
+import {  useState } from 'react';
 import { AiOutlineLike } from 'react-icons/ai';
 import { FaRegHeart } from 'react-icons/fa';
-import { SlUserFollow } from 'react-icons/sl';
+import { SlUserFollow, SlUserFollowing } from 'react-icons/sl';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../Context/AuthContext';
 
 
 const FetCard = ({ fetGarden }) => {
+  
   console.log("feture gardeners", fetGarden);
+  const [follow,setFollow]=useState(false);
+  const [followed,setFollowed]=useState(fetGarden.followersCount);
+
+
  
 
 
 
   const {
+    _id,
     photoURL,
     displayName,
     location,
@@ -18,10 +26,43 @@ const FetCard = ({ fetGarden }) => {
     bio,
     tipsCount,
     expertise
-  } = fetGarden || {}; // fallback empty object if fetGarden is undefined/null
+  } = fetGarden || {};
+
+  //  follower handle
+  const handleFollower=()=>{
+     const updatedFollowStatus = !follow; 
+  const updatedFollowCount = updatedFollowStatus ? followed + 1 : followed - 1;
+
+  // UI Update
+  setFollow(updatedFollowStatus);
+  setFollowed(updatedFollowCount);
+
+
+   // Server Update
+    fetch("http://localhost:3000/gardeners", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        followersCount: updatedFollowCount,
+        _id
+      })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          toast.success(follow ? "Like removed" : "Tip liked!");
+        } 
+      });
+  };
+
+  
+
 
   return (
-    <div className="card bg-accent-content border-[#3e743e20] border p-5 shadow-sm">
+   
+     <div className="card bg-accent-content border-[#3e743e20] border p-5 shadow-sm">
       <div className="card-body">
         <div className='flex items-center gap-3'>
           <div className="avatar">
@@ -32,7 +73,7 @@ const FetCard = ({ fetGarden }) => {
           <div>
             <h1 className='text-xl font-semibold'>
               {displayName || "Unknown Gardener"} &nbsp;
-              <button className="btn btn-outline btn-xs">Follow <SlUserFollow /></button>
+              <button onClick={handleFollower} className="btn btn-outline btn-xs">{follow?(<>Follow <SlUserFollow /></>):(<>Followed<SlUserFollowing /></>)}</button>
             </h1>
             <p className='text-sm'>{location || "Location not available"}</p>
           </div>
@@ -47,11 +88,12 @@ const FetCard = ({ fetGarden }) => {
           ))}
         </div>
         <div className="card-actions text-accent text-sm mt-5">
-          <p className='flex items-center gap-1'><AiOutlineLike />{tipsCount ?? 0} tips</p>
-          <p className='flex items-center gap-1'><FaRegHeart />{followersCount ?? 0} followers</p>
+         
+          <p className='flex items-center gap-1'><FaRegHeart />{followed?? 0} followers</p>
         </div>
       </div>
     </div>
+  
   );
 };
 

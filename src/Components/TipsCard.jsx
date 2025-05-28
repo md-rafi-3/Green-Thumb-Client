@@ -8,7 +8,7 @@ const TipsCard = ({ tips }) => {
     const authorData=use(authorPromise);
    
     const { _id, title, 
-name, platform, description, photo,difficulty,email, likeCount, buttonText, category, tags, createdAt } = tips;
+name,  description, photo,difficulty,email, likeCount, buttonText, category, tags, createdAt } = tips;
 
  const realAuthor=authorData.find(author=>author.email===email);
  console.log(realAuthor)

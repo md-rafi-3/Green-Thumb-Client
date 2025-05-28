@@ -11,7 +11,7 @@ import noTipsImg from '../assets/Pets with halloween costumes-bro.png'
 const userDataPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
 const MyTips = () => {
   const userData = use(userDataPromise);
-  const { user,setUser } = useContext(AuthContext);
+  const { user,setUser,tipLength,setTipsLength } = useContext(AuthContext);
   const tipsData = useLoaderData()
 
   
@@ -26,7 +26,7 @@ const MyTips = () => {
 
   const [myTipsData, setMyTipsData] = useState(initialData);
 
-
+    setTipsLength(myTipsData.length);
 
 
   const handleDelete = (id) => {
@@ -131,8 +131,8 @@ const MyTips = () => {
           <h1 className='text-accent'>{user.email}</h1>
           <div className='flex gap-3 text-accent'>
             <p>{realUser.followersCount} followers</p>
-            <p>{realUser.followersCount} following</p>
-            <p>{realUser.tipsCount} tips</p>
+            
+            <p>{tipLength} tips</p>
           </div>
 
           <button onClick={() => document.getElementById('my_modal_1').showModal()} className='flex items-center btn btn-primary'> <FaRegEdit /> Edit Profile </button>
