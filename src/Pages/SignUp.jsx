@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
@@ -13,6 +13,8 @@ const SignUp = () => {
   const handleEye = () => {
     setOpen(!open);
   };
+
+  const navigate=useNavigate()
 
 
   const handleSignUp = (e) => {
@@ -91,6 +93,9 @@ const SignUp = () => {
               showConfirmButton: false,
               timer: 1500
             });
+            setTimeout(()=>{
+       navigate("/");
+     },1300)
           }
         })
       }).catch((error) => {
@@ -152,15 +157,21 @@ const SignUp = () => {
               });
             }
           });
+          setTimeout(()=>{
+       navigate("/");
+     },1300)
         } else {
           // Already exists
           Swal.fire({
             icon: "info",
-            title: "Welcome back!",
+            title: "Please Login",
             text: "You already have an account.",
             showConfirmButton: false,
             timer: 1500
           });
+          setTimeout(()=>{
+       navigate("/login");
+     },1500)
         }
       });
 

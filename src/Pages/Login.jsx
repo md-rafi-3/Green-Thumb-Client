@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
@@ -7,10 +7,12 @@ import Swal from 'sweetalert2';
 const Login = () => {
   const {loginUser,googleLogin,setUser }=useContext(AuthContext);
    const [open, setOpen] = useState(false);
-
+ const location=useLocation()
  const handleEye = () => {
     setOpen(!open);
   };
+
+  const navigate=useNavigate()
 
   const handleLogin=(e)=>{
     e.preventDefault()
@@ -27,6 +29,10 @@ const Login = () => {
                   showConfirmButton: false,
                   timer: 1500
                 });
+
+                 setTimeout(()=>{
+         navigate(`${location.state?location.state:"/"}`)
+      },1300)
     
     }).catch((error) => {
       const errorMessage=error.code;
@@ -74,18 +80,14 @@ const Login = () => {
                   showConfirmButton: false,
                   timer: 1500
                 });
+                setTimeout(()=>{
+         navigate(`${location.state?location.state:"/"}`)
+      },1300)
               }
             });
-          } else {
-            // Already exists
-            Swal.fire({
-              icon: "success",
-              title: "Welcome back!",
-              text: "Login successfully!",
-              showConfirmButton: false,
-              timer: 1500
-            });
-          }
+             
+          } 
+          
         });
   
     }).catch((error) => {

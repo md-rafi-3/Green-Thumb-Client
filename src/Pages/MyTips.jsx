@@ -203,7 +203,7 @@ const MyTips = () => {
                           <td>{tips.likeCount}</td>
                           <td>
                             <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><FaEye />  </button></Link>
-                            <Link to={`/tipsDetails/${tips._id}`}><button className="btn btn-ghost btn-sm"><CiEdit /> </button></Link>
+                            <Link to={`/updateTips/${tips._id}`}><button className="btn btn-ghost btn-sm"><CiEdit /> </button></Link>
                             <button onClick={() => handleDelete(tips._id)} className="btn btn-ghost btn-sm"><MdDelete color='red' /> </button>
                           </td>
                         </tr>

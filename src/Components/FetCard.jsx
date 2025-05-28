@@ -31,7 +31,7 @@ const FetCard = ({ fetGarden }) => {
   //  follower handle
   const handleFollower=()=>{
      const updatedFollowStatus = !follow; 
-  const updatedFollowCount = updatedFollowStatus ? followed + 1 : followed - 1;
+  const updatedFollowCount = updatedFollowStatus ? followed - 1 : followed + 1;
 
   // UI Update
   setFollow(updatedFollowStatus);
@@ -73,7 +73,7 @@ const FetCard = ({ fetGarden }) => {
           <div>
             <h1 className='text-xl font-semibold'>
               {displayName || "Unknown Gardener"} &nbsp;
-              <button onClick={handleFollower} className="btn btn-outline btn-xs">{follow?(<>Follow <SlUserFollow /></>):(<>Followed<SlUserFollowing /></>)}</button>
+              <button onClick={handleFollower} className={`btn ${!follow?"btn-outline":"btn-primary"} btn-xs`}>{follow?(<>Follow <SlUserFollow /></>):(<>Followed<SlUserFollowing /></>)}</button>
             </h1>
             <p className='text-sm'>{location || "Location not available"}</p>
           </div>

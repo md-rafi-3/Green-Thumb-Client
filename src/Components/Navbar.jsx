@@ -3,13 +3,15 @@ import { FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { LuLogOut, LuUsersRound } from 'react-icons/lu';
 import { MdLogin, MdOutlineHome } from 'react-icons/md';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import DarkMode from './DarkMode';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { Tooltip } from 'react-tooltip';
 
 
 const Navbar = () => {
+  const navigate=useNavigate()
   
   const { user, userSignOut } = useContext(AuthContext);
 
@@ -45,6 +47,9 @@ const Navbar = () => {
             text: "Your file has been deleted.",
             icon: "success"
           });
+          setTimeout(()=>{
+       navigate("/login");
+     },1000)
         }).catch((error) => {
           const errorMessage = error.code;
           Swal.fire({
@@ -96,11 +101,17 @@ const Navbar = () => {
           user ? (<div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={user?.photoURL|| "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} alt={user.displayName} 
+                <img  id="user-tooltip" src={user?.photoURL|| "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} alt={user.displayName} 
                   referrerPolicy="no-referrer"
                 />
               </div>
             </div>
+             {/* Tooltip */}
+            <Tooltip
+              anchorSelect="#user-tooltip"
+              place="bottom"
+              content={user.displayName}
+            />
             <div tabIndex={0}
               className="menu menu-sm dropdown-content border-[#3e743e20] bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <div><h3 className='text-sm'>{user.displayName}</h3>
