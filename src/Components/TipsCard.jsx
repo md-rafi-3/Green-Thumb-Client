@@ -1,14 +1,23 @@
-import React, { use } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa6';
 import { Link } from 'react-router';
 
-const authorPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
+// const authorPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
 const TipsCard = ({ tips }) => {
-    const authorData=use(authorPromise);
+    // const authorData=use(authorPromise);
    
     const { _id, title, 
 name,  description, photo,difficulty,email, likeCount, } = tips;
+    const [authorData, setAuthorData] = useState([]);
+
+     useEffect(() => {
+        fetch("https://green-thumb-server-delta.vercel.app/gardeners")
+            .then(res => res.json())
+            .then(data => setAuthorData(data));
+            
+    }, []);
+
 
  const realAuthor=authorData.find(author=>author.email===email);
 
@@ -38,7 +47,7 @@ name,  description, photo,difficulty,email, likeCount, } = tips;
 
                  <div className="avatar flex items-center py-3 gap-2">
                     <div className="w-9 rounded-full">
-                        <img src={realAuthor.photoURL} />
+                        <img src={realAuthor?.photoURL} />
                     </div>
                     <p className='text-sm text-accent'>{name}</p>
                 </div>

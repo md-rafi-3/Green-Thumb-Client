@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FaEye } from 'react-icons/fa';
 import { TbListDetails } from 'react-icons/tb';
 
@@ -66,7 +66,7 @@ const BrowseTips = () => {
       {/* row 1 */}
       {
         filteredTips.map(tips=>(
-          <tr>
+          <tr key={tips.title}>
         
         <td>
           <div className="flex items-center gap-3">

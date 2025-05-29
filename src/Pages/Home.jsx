@@ -7,7 +7,7 @@ import Guide from '../Components/Guide';
 import JoinComunity from '../Components/JoinComunity';
 import { AuthContext } from '../Context/AuthContext';
 import CountDown from '../Components/CountDown';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 
 const Home = () => {

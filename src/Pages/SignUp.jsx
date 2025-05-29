@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 
 const SignUp = () => {

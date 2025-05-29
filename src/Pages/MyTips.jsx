@@ -1,4 +1,4 @@
-import React, { use, useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { TbListDetails } from 'react-icons/tb';
@@ -7,27 +7,39 @@ import { CiEdit } from 'react-icons/ci';
 import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import noTipsImg from '../assets/Pets with halloween costumes-bro.png'
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
+import Loading from '../Components/Loading';
 
-const userDataPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
+// const userDataPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
 const MyTips = () => {
-  const userData = use(userDataPromise);
+  // const userData = use(userDataPromise);
+    const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user, setUser, tipLength, setTipsLength } = useContext(AuthContext);
   const tipsData = useLoaderData()
 
 
 
+useEffect(() => {
+    fetch("https://green-thumb-server-delta.vercel.app/gardeners")
+      .then(res => res.json())
+      .then(data => {
+        setUserData(data);
+        setLoading(false);
+      })
+      
+        
+        setLoading(false);
+      
+  }, []);
 
   const realUser = userData.find(real => real.email === user.email);
 
-
-
   const initialData = tipsData.filter(myTips => myTips.email === user.email);
-
-
   const [myTipsData, setMyTipsData] = useState(initialData);
-
-  setTipsLength(myTipsData.length);
+  useEffect(() => {
+    setTipsLength(myTipsData.length);
+  }, [myTipsData.length, setTipsLength]);
 
 
   const handleDelete = (id) => {
@@ -124,7 +136,10 @@ const MyTips = () => {
       </Helmet>
 
 
-      <div className='flex md:flex-row flex-col items-center md:justify-start justify-center gap-3'>
+      {
+        loading ? (
+        <Loading></Loading>
+      ):(<><div className='flex md:flex-row flex-col items-center md:justify-start justify-center gap-3'>
         <div className="avatar">
           <div className="w-28 rounded-full">
             <img src={user.photoURL} referrerPolicy="no-referrer" />
@@ -134,7 +149,7 @@ const MyTips = () => {
           <h1 className='text-2xl font-bold'>{user.displayName}</h1>
           <h1 className='text-accent'>{user.email}</h1>
           <div className='flex gap-3 text-accent'>
-            <p>{realUser.followersCount} followers</p>
+            <p>{realUser?.followersCount} followers</p>
 
             <p>{tipLength} tips</p>
           </div>
@@ -179,7 +194,7 @@ const MyTips = () => {
                     {/* row 1 */}
                     {
                       myTipsData.map(tips => (
-                        <tr>
+                        <tr key={tips.title}>
 
                           <td>
                             <div className="flex items-center gap-3">
@@ -254,7 +269,8 @@ const MyTips = () => {
 
         </div>
       </dialog>
-      {/* modal end */}
+      {/* modal end */}</>)
+      }
 
     </div>
 

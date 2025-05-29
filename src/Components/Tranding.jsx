@@ -1,11 +1,18 @@
-import React, { use } from 'react';
+import React, {  useEffect, useState } from 'react';
 import TipsCard from './TipsCard';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router';
 
-const tipsPromise=fetch("https://green-thumb-server-delta.vercel.app/tips/tranding").then(res=>res.json())
+
 const Tranding = () => {
-   const tipsData=use(tipsPromise);
+//    const tipsData=use(tipsPromise);
+  const [tipsData, setTipsData] = useState([]);
+   useEffect(() => {
+        fetch("https://green-thumb-server-delta.vercel.app/tips/tranding")
+            .then(res => res.json())
+            .then(data => setTipsData(data))
+       
+    }, []);
     return (
         <div data-aos="fade-up"
           data-aos-duration="800"

@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useLoaderData } from 'react-router';
 import FetCard from '../Components/FetCard';
 import { AuthContext } from '../Context/AuthContext';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const Gardeners = () => {
   const { user } = useContext(AuthContext);

@@ -1,18 +1,26 @@
-import React, { use, useContext } from 'react';
+import React, {  useContext, useEffect, useState } from 'react';
 import FetCard from './FetCard';
 import { FaArrowRight } from 'react-icons/fa';
 import { AuthContext } from '../Context/AuthContext';
 import { Link } from 'react-router';
 
 
-const fetPromise=fetch("https://green-thumb-server-delta.vercel.app/gardeners/featured").then(res=>res.json())
+
 const FeturesGardeners = () => {
-    const fetGardeners=use(fetPromise);
-  
-    
+     const [gardeners, setGardeners] = useState([]);
+    // const fetGardeners=use(fetPromise);
     const {user}=useContext(AuthContext);
+     useEffect(() => {
+        fetch("https://green-thumb-server-delta.vercel.app/gardeners/featured")
+            .then(res => res.json())
+            .then(data => {
+                const filteredGardeners = data.filter(gar => gar.email !== user?.email);
+                setGardeners(filteredGardeners);
+            })
+            
+    }, [user]);
   
- const gardeners=fetGardeners.filter(gar=>gar.email !==user?.email);
+
  
 
 
