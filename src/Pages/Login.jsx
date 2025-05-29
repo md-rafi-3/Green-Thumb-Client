@@ -45,55 +45,56 @@ const Login = () => {
   }
 
   const handleGoogleLogin = () => {
-    googleLogin().then(result => {
+  googleLogin()
+    .then(result => {
+      const user = result.user;
+
      
-      const userData = {
-        email: result.user.email,
-        displayName: result.user.displayName,
-        photoURL: result.user.photoURL,
-        followersCount: 0,
-        status: "Active",
-      };
-        
-       setUser(result.user)
-      
+
+      setUser(user);
+
       // Check if user already exists
-      fetch(`https://green-thumb-server-delta.vercel.app/gardeners?email=${userData.email}`)
+      fetch(`https://green-thumb-server-delta.vercel.app/gardeners?email=${user.email}`)
         .then(res => res.json())
         .then(existingUsers => {
           if (existingUsers.length === 0) {
-            // Only add to DB if user doesn't exist
-            fetch("https://green-thumb-server-delta.vercel.app/gardeners", {
-              method: "POST",
-              headers: {
-                "content-type": "application/json"
-              },
-              body: JSON.stringify(userData)
-            })
-            .then(res => res.json())
-            .then(data => {
-              if (data.insertedId) {
-                Swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "Login successfully!",
-                  showConfirmButton: false,
-                  timer: 1500
-                });
-                setTimeout(()=>{
-         navigate(`${location.state?location.state:"/"}`)
-      },1300)
-              }
+            // User does NOT exist, redirect to sign up
+            Swal.fire({
+              icon: 'info',
+              title: 'Account not found',
+              text: 'Redirecting to sign up page...',
+              timer: 1500,
+              showConfirmButton: false,
             });
-             
-          } 
-          
+
+            setTimeout(() => {
+              navigate("/signUp");
+            }, 1300);
+          } else {
+            // User already exists, login successful
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Login successfully!",
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            setTimeout(() => {
+              navigate(location.state?.from || "/");
+            }, 1300);
+          }
         });
-  
-    }).catch((error) => {
+    })
+    .catch(error => {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.message,
+      });
     });
-  };
+};
   
     return (
         <div className='py-10  w-11/12 mx-auto flex items-center justify-center'>
@@ -105,7 +106,7 @@ const Login = () => {
       <div className="card-body ">
         <form onSubmit={handleLogin} className="fieldset">
           <label className="label">Email</label>
-          <input type="email" className="input w-full" placeholder="Your email address" name='email' />
+          <input required type="email" className="input w-full" placeholder="Your email address" name='email' />
           <label className="label">Password</label>
           
           <div className='relative'>

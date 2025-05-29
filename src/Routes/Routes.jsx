@@ -16,6 +16,7 @@ import PrivetRoute from "../PrivetRoute/PrivetRoute";
 import Error from "../Pages/Error";
 import UpdatedTips from "../Pages/UpdatedTips";
 
+
 export const router = createBrowserRouter([
   {
     path: "/",

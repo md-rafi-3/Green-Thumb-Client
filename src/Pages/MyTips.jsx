@@ -233,15 +233,15 @@ const MyTips = () => {
           {/* modal body */}
           <form onSubmit={handleProfileUpdate} className='fieldset'>
             <label className="label">Name</label>
-            <input type="text" placeholder="Your name" className="input w-full" defaultValue={user?.displayName} name='name' />
+            <input required  type="text" placeholder="Your name" className="input w-full" defaultValue={user?.displayName} name='name' />
             <label className="label">Location</label>
-            <input name='location' defaultValue={realUser?.location} type="text" placeholder="Your location" className="input w-full" />
+            <input required name='location' defaultValue={realUser?.location} type="text" placeholder="Your location" className="input w-full" />
             <label className="label">Photo</label>
-            <input type="text" defaultValue={user?.photoURL} placeholder="Your photo URL" name='photo' className="input w-full" />
+            <input required type="text" defaultValue={user?.photoURL} placeholder="Your photo URL" name='photo' className="input w-full" />
             <label className="label">Expertise</label>
-            <input type="text" name='expertise' placeholder="Your expertise" className="input w-full" />
+            <input required type="text" name='expertise' placeholder="Your expertise" className="input w-full" />
             <label className="label">Bio</label>
-            <textarea name='bio' defaultValue={realUser?.bio} className="textarea w-full" placeholder="Write a Bio"></textarea>
+            <textarea required name='bio' defaultValue={realUser?.bio} className="textarea w-full" placeholder="Write a Bio"></textarea>
 
             <div onClick={() => document.getElementById('my_modal_1').close()} className='flex justify-end items-center gap-3 mt-3'><button type='button' className='btn border-primary btn-outline'>Cancel</button>
               <button className='btn  btn-primary' onClick={() => document.getElementById('my_modal_1').close()}  type='submit' >Update</button></div>

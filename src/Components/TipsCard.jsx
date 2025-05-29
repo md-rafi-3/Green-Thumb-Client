@@ -13,7 +13,10 @@ name,  description, photo,difficulty,email, likeCount, buttonText, category, tag
  const realAuthor=authorData.find(author=>author.email===email);
  console.log(realAuthor)
     return (
-        <div className="rounded-xl border-[#3e743e20] overflow-hidden shadow-lg   hover:shadow-xl  flex flex-col transition-all duration-300 transform hover:-translate-y-1  group bg-accent-content">
+        <div data-aos="fade-up"
+          data-aos-duration="800"
+        data-aos-once="false"
+        data-aos-delay={200} className="rounded-xl border-[#3e743e20] overflow-hidden shadow-lg   hover:shadow-xl  flex flex-col transition-all duration-300 transform hover:-translate-y-1  group bg-accent-content">
 
             <div className="relative">
                 <img

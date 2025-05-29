@@ -18,7 +18,10 @@ const FeturesGardeners = () => {
 
     return (
        
-            <div className='w-11/12 mx-auto mt-30'>
+            <div data-aos="fade-up"
+          data-aos-duration="800"
+        data-aos-once="false"
+        data-aos-delay={200} className='w-11/12 mx-auto mt-30'>
            <div className='flex md:flex-row flex-col justify-between space-y-3 items-center'> <h1 className='text-3xl font-bold '>Featured Gardeners</h1>
            <Link to="/gardeners"><button className='btn btn-outline border-primary hover:text-white'>View All <FaArrowRight /></button></Link>
            </div>

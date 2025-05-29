@@ -53,7 +53,10 @@ const Banner = () => {
             style={{ backgroundImage: `url(${slider.image})` }}
           >
             <div className="absolute inset-0 bg-black/42"></div>
-            <div className=" p-6 md:p-12 max-w-3xl z-10 text-white ml-6 rounded-xl">
+            <div data-aos="fade-up"
+          data-aos-duration="800"
+        data-aos-once="false"
+        data-aos-delay={200} className=" p-6 md:p-12 max-w-3xl z-10 text-white ml-6 rounded-xl">
 
               <h2 className="text-3xl md:text-5xl font-bold mt-4 leading-tight">
                 {slider.staticText}

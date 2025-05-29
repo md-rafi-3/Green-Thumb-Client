@@ -62,7 +62,10 @@ const FetCard = ({ fetGarden }) => {
 
   return (
    
-     <div className="card bg-accent-content border-[#3e743e20] border p-5 shadow-sm">
+     <div data-aos="fade-up"
+          data-aos-duration="800"
+        data-aos-once="false"
+        data-aos-delay={200} className="card bg-accent-content transition-all duration-300 transform hover:-translate-y-1  group border-[#3e743e20] border p-5 shadow-sm">
       <div className="card-body">
         <div className='flex items-center gap-3'>
           <div className="avatar">
