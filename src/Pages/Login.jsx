@@ -6,12 +6,15 @@ import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
-  const { loginUser, googleLogin, setUser } = useContext(AuthContext);
+  const { loginUser, googleLogin, setUser, resetPassword } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const [emailValue,setEmailValue]=useState("")
   const location = useLocation()
   const handleEye = () => {
     setOpen(!open);
   };
+
+
 
   const navigate = useNavigate()
 
@@ -19,7 +22,7 @@ const Login = () => {
     e.preventDefault()
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     // email pass login
     loginUser(email, password).then(() => {
 
@@ -89,13 +92,36 @@ const Login = () => {
       })
       .catch(error => {
         const errorMessage = error.code;
-          Swal.fire({
-            title: errorMessage,
-            icon: "error",
-            draggable: true
-          });
+        Swal.fire({
+          title: errorMessage,
+          icon: "error",
+          draggable: true
+        });
       });
   };
+
+
+  const handlePasswordReset = (e) => {
+    e.preventDefault()
+    const email=e.target.resetEmail.value;
+    resetPassword(email).then(() => {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Password reset email sent!",
+        text: "Please check your inbox.",
+        showConfirmButton: false,
+        timer: 3000
+      });
+    }).catch(error => {
+      const errorMessage = error.code;
+      Swal.fire({
+        title: errorMessage,
+        icon: "error",
+        draggable: true
+      });
+    })
+  }
 
   return (
     <div className='py-10  w-11/12 mx-auto flex items-center justify-center'>
@@ -110,7 +136,7 @@ const Login = () => {
         <div className="card-body ">
           <form onSubmit={handleLogin} className="fieldset">
             <label className="label">Email</label>
-            <input required type="email" className="input w-full" placeholder="Your email address" name='email' />
+            <input onChange={(e)=>setEmailValue(e.target.value)} required type="email" className="input w-full" placeholder="Your email address" name='email'  />
             <label className="label">Password</label>
 
             <div className='relative'>
@@ -124,7 +150,7 @@ const Login = () => {
               </button>
             </div>
 
-            <div><a className="link link-hover text-accent">Forgot password?</a></div>
+            <div onClick={()=>document.getElementById('my_modal_1').showModal()}><a className="link link-hover text-accent">Forgot password?</a></div>
             <button className="btn btn-primary mt-4">Login</button>
           </form>
 
@@ -137,6 +163,22 @@ const Login = () => {
           <p className='text-center text-sm mt-3'>Don't have an account? <Link to="/signUp" className='text-primary underline '>Sign up</Link></p>
         </div>
       </div>
+
+      {/* pasword reset modal */}
+     
+<dialog id="my_modal_1" className="modal">
+  <div className="modal-box">
+    <h1 className='text-3xl font-bold text-center'>Forget Your Password</h1>
+   <form onSubmit={handlePasswordReset}>
+     <label className="label">Email</label>
+    <input required defaultValue={emailValue} type="email" name='resetEmail' placeholder="Enter your email" className="input w-full" />
+    <div onClick={() => document.getElementById('my_modal_1').close()} className='flex justify-end items-center gap-3 mt-3'><button type='button' className='btn border-primary btn-outline'>Cancel</button>
+              <button className='btn  btn-primary' onClick={() => document.getElementById('my_modal_1').close()} type='submit' >Reset Password</button></div>
+   </form>
+    
+  </div>
+</dialog>
+      {/* modal end */}
     </div>
   );
 };
