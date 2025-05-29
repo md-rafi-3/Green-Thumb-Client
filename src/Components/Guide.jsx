@@ -154,7 +154,7 @@ const Guide = () => {
 
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="btn text-white">Close</button>
             </form>
           </div>
         </div>
