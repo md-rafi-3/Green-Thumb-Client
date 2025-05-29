@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { FaEye } from 'react-icons/fa';
 import { TbListDetails } from 'react-icons/tb';
 
@@ -6,10 +7,10 @@ import { Link, useLoaderData } from 'react-router';
 
 const BrowseTips = () => {
   const tipsData=useLoaderData()
-  console.log(tipsData);
+
     const [difficulty, setDifficulty] = useState("All");
 
-    console.log(difficulty)
+    
 
    
     
@@ -22,6 +23,9 @@ const BrowseTips = () => {
      
     return (
         <div className='w-11/12 mx-auto py-10'>
+           <Helmet>
+                <title>Green-Thumb || Browse-Tips</title>
+            </Helmet>
            
            <h1 className='text-3xl font-bold '>Browse Garden Tips</h1>
            

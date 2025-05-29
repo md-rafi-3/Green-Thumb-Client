@@ -2,80 +2,84 @@ import React, { useContext } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const UpdatedTips = () => {
-    const {user}=useContext(AuthContext)
-    const tipsData=useLoaderData()
-    console.log(tipsData)
-    const navigate=useNavigate()
-    const {
-  availability,
-  category,
-  createdAt,
-  description,
-  difficulty,
-  email,
-  likeCount,
-  name,
-  photo,
-  title,
-  topic,
-  _id
-} = tipsData;
-
-
-
-// handle update from
-const handleUpdate=(e)=>{
-    e.preventDefault()
-    const form=e.target;
-    const formData=new FormData(form);
-    const updatedData=Object.fromEntries(formData.entries());
-    updatedData.likeCount=likeCount;
-    updatedData.createdAt=createdAt;
-
-    console.log('updated data',updatedData)
+    const { user } = useContext(AuthContext)
+    const tipsData = useLoaderData()
   
+    const navigate = useNavigate()
+    const {
+        availability,
+        category,
+        createdAt,
+        description,
+        difficulty,
+       
+        likeCount,
+       
+        photo,
+        title,
+        topic,
+        _id
+    } = tipsData;
 
-    // add to db
-    fetch(`https://green-thumb-server-delta.vercel.app/tips/privet/${_id}`,{
-        method:"PUT",
-        headers:{
-            "content-type":"application/json"
-        },
-        body:JSON.stringify(updatedData)
-    }).then(res=>res.json()).then(data=>{
-        if(data.acknowledged){
-            Swal.fire({
-                                position: "center",
-                                icon: "success",
-                                title: "Your work has been saved",
-                                showConfirmButton:true,
-                                confirmButtonText: "View Tips",
-                                timer:2000
-                            }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                if (result.isConfirmed) {
-                                  
-                                   navigate("/myTips");
-                                } 
-                                else{
-                                    navigate("/")
-                                }
-                            });
-        }
 
-    })
-}
+
+    // handle update from
+    const handleUpdate = (e) => {
+        e.preventDefault()
+        const form = e.target;
+        const formData = new FormData(form);
+        const updatedData = Object.fromEntries(formData.entries());
+        updatedData.likeCount = likeCount;
+        updatedData.createdAt = createdAt;
+
+       
+
+
+        // add to db
+        fetch(`https://green-thumb-server-delta.vercel.app/tips/privet/${_id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(updatedData)
+        }).then(res => res.json()).then(data => {
+            if (data.acknowledged) {
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Your tips have been updated!",
+                    showConfirmButton: true,
+                    confirmButtonText: "View Tips",
+                    timer: 2000
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+
+                        navigate("/myTips");
+                    }
+                    else {
+                        navigate("/")
+                    }
+                });
+            }
+
+        })
+    }
     return (
-         <div className=' py-20 w-11/12 mx-auto flex items-center justify-center '>
+        <div className=' py-20 w-11/12 mx-auto flex items-center justify-center '>
+            <Helmet>
+                <title>Green-Thumb || Update-Tip</title>
+            </Helmet>
             <div className="card  w-full max-w-xl bg-accent-content border-[#3e743e20] bordert shadow-2xl">
                 <div className='pt-5 px-5 space-y-2'>
                     <h1 className='text-3xl font-bold text-center'>Update Your Garden Tip</h1>
                     <p className='text-sm text-center text-accent'>Share your knowledge with the community! Fill out the form below to create a new tip.</p>
                 </div>
                 <div className="card-body ">
-                    <form onSubmit={handleUpdate}  className="fieldset ">
+                    <form onSubmit={handleUpdate} className="fieldset ">
                         <label className="label">Title</label>
                         <input defaultValue={title} required type="text" className="input w-full" placeholder="Enter a descriptive title" name='title' />
                         <label className="label">Topic</label>

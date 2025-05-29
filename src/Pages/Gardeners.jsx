@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useLoaderData } from 'react-router';
 import FetCard from '../Components/FetCard';
 import { AuthContext } from '../Context/AuthContext';
+import { Helmet } from 'react-helmet';
 
 const Gardeners = () => {
   const { user } = useContext(AuthContext);
@@ -41,6 +42,9 @@ const Gardeners = () => {
 
   return (
     <div className='w-11/12 mx-auto'>
+      <Helmet>
+                <title>Green-Thumb || Gardeners</title>
+            </Helmet>
       <h1 className='text-3xl font-bold mt-5'>Explore Gardeners</h1>
 
       <div className='flex gap-2 py-5'>

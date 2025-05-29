@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 
 const SignUp = () => {
-  const { createUser, updatedUser,setUser, googleLogin } = useContext(AuthContext);
+  const { createUser, updatedUser, setUser, googleLogin } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
 
 
@@ -14,7 +15,7 @@ const SignUp = () => {
     setOpen(!open);
   };
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
 
   const handleSignUp = (e) => {
@@ -23,7 +24,7 @@ const SignUp = () => {
     const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, name, photo, password)
+   
 
 
     // validation
@@ -84,105 +85,114 @@ const SignUp = () => {
           },
           body: JSON.stringify(userData)
         }).then(res => res.json()).then(data => {
-          console.log("data added to db", data)
+         
           if (data.insertedId) {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: "Your work has been saved",
+              title: "Sign up successful!",
+              text: "Welcome to our community!",
               showConfirmButton: false,
               timer: 1500
             });
-            setTimeout(()=>{
-       navigate("/");
-     },1300)
+            setTimeout(() => {
+              navigate("/");
+            }, 1300)
           }
         })
       }).catch((error) => {
-       const errorMessage=error.code;
-            Swal.fire({
-         title: errorMessage,
-         icon: "error",
-         draggable: true
-       });
+        const errorMessage = error.code;
+        Swal.fire({
+          title: errorMessage,
+          icon: "error",
+          draggable: true
+        });
       })
 
 
-      console.log(result.user)
+    
     }).catch((error) => {
-     const errorMessage=error.code;
-          Swal.fire({
-       title: errorMessage,
-       icon: "error",
-       draggable: true
-     });
+      const errorMessage = error.code;
+      Swal.fire({
+        title: errorMessage,
+        icon: "error",
+        draggable: true
+      });
     })
   }
 
   const handleGoogleLogin = () => {
-  googleLogin().then(result => {
-    
-    const userData = {
-      email: result.user.email,
-      displayName: result.user.displayName,
-      photoURL: result.user.photoURL,
-      followersCount: 0,
-      status: "Active",
-    };
+    googleLogin().then(result => {
 
-    setUser(result.user);
+      const userData = {
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL,
+        followersCount: 0,
+        status: "Active",
+      };
 
-    // Check if user already exists
-    fetch(`https://green-thumb-server-delta.vercel.app/gardeners?email=${userData.email}`)
-      .then(res => res.json())
-      .then(existingUsers => {
-        if (existingUsers.length === 0) {
-          // Only add to DB if user doesn't exist
-          fetch("https://green-thumb-server-delta.vercel.app/gardeners", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json"
-            },
-            body: JSON.stringify(userData)
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.insertedId) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Account created successfully!",
-                showConfirmButton: false,
-                timer: 1500
+      setUser(result.user);
+
+      // Check if user already exists
+      fetch(`https://green-thumb-server-delta.vercel.app/gardeners?email=${userData.email}`)
+        .then(res => res.json())
+        .then(existingUsers => {
+          if (existingUsers.length === 0) {
+            // Only add to DB if user doesn't exist
+            fetch("https://green-thumb-server-delta.vercel.app/gardeners", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json"
+              },
+              body: JSON.stringify(userData)
+            })
+              .then(res => res.json())
+              .then(data => {
+                if (data.insertedId) {
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Account created successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                }
               });
-            }
-          });
-          setTimeout(()=>{
-       navigate("/");
-     },1300)
-        } else {
-          // Already exists
-          Swal.fire({
-            icon: "info",
-            title: "Please Login",
-            text: "You already have an account.",
-            showConfirmButton: false,
-            timer: 1500
-          });
-          setTimeout(()=>{
-       navigate("/login");
-     },1500)
-        }
-      });
+            setTimeout(() => {
+              navigate("/");
+            }, 1300)
+          } else {
+            // Already exists
+            Swal.fire({
+              icon: "success",
+              title: "Login Successful!",
+              text: "Welcome back!",
+              showConfirmButton: false,
+              timer: 1500
+            });
+            setTimeout(() => {
+              navigate("/");
+            }, 1500)
+          }
+        });
 
-  }).catch((error) => {
-    console.log(error);
-  });
-};
+    }).catch((error) => {
+     const errorMessage = error.code;
+          Swal.fire({
+            title: errorMessage,
+            icon: "error",
+            draggable: true
+          });
+    });
+  };
 
 
   return (
     <div className=' w-11/12 mx-auto flex items-center justify-center py-10'>
+      <Helmet>
+        <title>Green-Thumb || Sign-Up</title>
+      </Helmet>
       <div className="card  w-full max-w-[400px] bg-accent-content border-[#3e743e20] bordert shadow-2xl">
         <div className='pt-5'>
           <h1 className='text-2xl font-bold text-center'>Create an Account</h1>
@@ -193,9 +203,9 @@ const SignUp = () => {
             <label className="label">Name</label>
             <input required type="text" className="input w-full" placeholder="Your name" name='name' />
             <label className="label">Photo</label>
-            <input  required type="text" className="input w-full" placeholder="Your photo URL" name='photo' />
+            <input required type="text" className="input w-full" placeholder="Your photo URL" name='photo' />
             <label className="label">Email</label>
-            <input  required type="email" className="input w-full" placeholder="Your email address" name='email' />
+            <input required type="email" className="input w-full" placeholder="Your email address" name='email' />
             <label className="label">Password</label>
             <div className='relative'>
               <input type={`${open ? "text" : "password"}`} required className="input w-full" placeholder="Your password" name='password' />

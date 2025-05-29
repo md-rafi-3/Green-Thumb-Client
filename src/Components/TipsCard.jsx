@@ -8,10 +8,10 @@ const TipsCard = ({ tips }) => {
     const authorData=use(authorPromise);
    
     const { _id, title, 
-name,  description, photo,difficulty,email, likeCount, buttonText, category, tags, createdAt } = tips;
+name,  description, photo,difficulty,email, likeCount, } = tips;
 
  const realAuthor=authorData.find(author=>author.email===email);
- console.log(realAuthor)
+
     return (
         <div data-aos="fade-up"
           data-aos-duration="800"

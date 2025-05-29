@@ -1,4 +1,4 @@
-import React, {  useContext } from 'react';
+import React, { useContext } from 'react';
 import { FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { IoSearchOutline } from 'react-icons/io5';
 import { LuLogOut, LuUsersRound } from 'react-icons/lu';
@@ -11,17 +11,16 @@ import { Tooltip } from 'react-tooltip';
 
 
 const Navbar = () => {
-  const navigate=useNavigate()
-  
+  const navigate = useNavigate()
+
   const { user, userSignOut } = useContext(AuthContext);
 
 
 
-  
-  
 
- console.log(user)
 
+
+ 
   const links = <>
     <li><NavLink to="/"><MdOutlineHome />Home</NavLink></li>
     <li><NavLink to="/gardeners"><LuUsersRound />Explore Gardeners</NavLink></li>
@@ -33,23 +32,24 @@ const Navbar = () => {
   const handleSignOut = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+  text: "Do you want to log out?",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, log out!",
+  cancelButtonText: "Cancel"
     }).then((result) => {
       if (result.isConfirmed) {
         userSignOut().then(() => {
           Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "Logged Out!",
+            text: "You have been successfully logged out.",
             icon: "success"
           });
-          setTimeout(()=>{
-       navigate("/login");
-     },1000)
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000)
         }).catch((error) => {
           const errorMessage = error.code;
           Swal.fire({
@@ -101,12 +101,12 @@ const Navbar = () => {
           user ? (<div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img  id="user-tooltip" src={user?.photoURL|| "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} alt={user.displayName} 
+                <img id="user-tooltip" src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} alt={user.displayName}
                   referrerPolicy="no-referrer"
                 />
               </div>
             </div>
-             {/* Tooltip */}
+            {/* Tooltip */}
             <Tooltip
               anchorSelect="#user-tooltip"
               place="bottom"

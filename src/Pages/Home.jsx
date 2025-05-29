@@ -7,6 +7,7 @@ import Guide from '../Components/Guide';
 import JoinComunity from '../Components/JoinComunity';
 import { AuthContext } from '../Context/AuthContext';
 import CountDown from '../Components/CountDown';
+import { Helmet } from 'react-helmet';
 
 
 const Home = () => {
@@ -16,6 +17,9 @@ const Home = () => {
     
     return (
         <div>
+           <Helmet>
+                <title>Green-Thumb || Home</title>
+            </Helmet>
             <Banner></Banner>
             <main >
                  <FeturesGardeners></FeturesGardeners>

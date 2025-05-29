@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const ShareTips = () => {
     const { user } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const ShareTips = () => {
         const newTips = Object.fromEntries(formData);
         newTips.createdAt = new Date().toISOString();
         newTips.likeCount = 0;
-        console.log(newTips)
+   
 
 
         // add to db
@@ -28,35 +29,38 @@ const ShareTips = () => {
             },
             body: JSON.stringify(newTips)
         }).then(res => res.json()).then(data => {
-            console.log("added to db", data)
+       
             if (data.insertedId) {
-                 form.reset()
+                form.reset()
                 // alert
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Your work has been saved",
-                    showConfirmButton:true,
+                    title: "Tips shared successfully!",
+                    showConfirmButton: true,
                     confirmButtonText: "View Tips",
-                    timer:2000
+                    timer: 2000
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                      
-                       navigate("/myTips");
-                    } 
-                    else{
+
+                        navigate("/myTips");
+                    }
+                    else {
                         navigate("/")
                     }
                 });
 
-                
+
             }
         })
     }
 
     return (
         <div className=' py-20 w-11/12 mx-auto flex items-center justify-center '>
+            <Helmet>
+                <title>Green-Thumb || Share-Tip</title>
+            </Helmet>
             <div className="card  w-full max-w-xl bg-accent-content border-[#3e743e20] bordert shadow-2xl">
                 <div className='pt-5 px-5 space-y-2'>
                     <h1 className='text-3xl font-bold text-center'>Create a New Garden Tip</h1>

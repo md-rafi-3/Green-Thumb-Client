@@ -8,13 +8,13 @@ import { Link } from 'react-router';
 const fetPromise=fetch("https://green-thumb-server-delta.vercel.app/gardeners/featured").then(res=>res.json())
 const FeturesGardeners = () => {
     const fetGardeners=use(fetPromise);
-    console.log("future",fetGardeners)
+  
     
     const {user}=useContext(AuthContext);
   
  const gardeners=fetGardeners.filter(gar=>gar.email !==user?.email);
  
- console.log("gardeners",gardeners)
+
 
     return (
        
@@ -28,7 +28,7 @@ const FeturesGardeners = () => {
             
             <div className='grid grid-cols-1  md:grid-cols-3 gap-5 mt-6'>
                 {
-                    gardeners.map(fetGarden=><FetCard fetGarden={fetGarden}></FetCard>)
+                    gardeners.map(fetGarden=><FetCard key={fetGarden.email} fetGarden={fetGarden}></FetCard>)
                 }
             </div>
         </div>

@@ -8,6 +8,7 @@ import { LuCalendarFold } from 'react-icons/lu';
 import { Link, useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
  import { ToastContainer, toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 const authorPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
 
@@ -30,7 +31,7 @@ const TipsDetails = () => {
         createdAt,
         description,
         email,
-        likeCount,
+      
         name,
         photo,
         title,
@@ -39,9 +40,9 @@ const TipsDetails = () => {
     } = data;
 
      
-    console.log("tips data", data)
+   
 
-    console.log(typeof likeCount)
+
 
     const date = new Date(createdAt);
 
@@ -51,10 +52,10 @@ const TipsDetails = () => {
         month: "long",
         day: "numeric"
     });
-    console.log(formattedDate)
+
 
     const realAuthor = authorData.find(author => author.email === data.email);
-    console.log("this is real author", realAuthor)
+  
 
 
     const handleLike = () => {
@@ -84,9 +85,12 @@ const TipsDetails = () => {
     });
 };
       
-      console.log(like)
+    
     return (
         <div className='w-11/12 mx-auto py-10'>
+          <Helmet>
+                <title>Green-Thumb || Tips-Details</title>
+            </Helmet>
           <ToastContainer></ToastContainer>
             <button className='flex items-center p-3 hover:bg-secondary hover:text-white gap-1 rounded-sm' onClick={()=>navigate(-1)}><IoMdArrowRoundBack /> Back</button>
             {/* container */}

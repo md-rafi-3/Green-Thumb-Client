@@ -8,7 +8,7 @@ import { AuthContext } from '../Context/AuthContext';
 
 const FetCard = ({ fetGarden }) => {
   
-  console.log("feture gardeners", fetGarden);
+
   const [follow,setFollow]=useState(false);
   const [followed,setFollowed]=useState(fetGarden.followersCount);
 
@@ -22,9 +22,9 @@ const FetCard = ({ fetGarden }) => {
     photoURL,
     displayName,
     location,
-    followersCount,
+   
     bio,
-    tipsCount,
+    
     expertise
   } = fetGarden || {};
 

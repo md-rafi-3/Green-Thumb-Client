@@ -17,7 +17,7 @@ const Tranding = () => {
          
          <div className='grid md:grid-cols-3  grid-cols-1 gap-5 w-11/12 mx-auto'>
             {
-                tipsData.map(tips=><TipsCard tips={tips}></TipsCard>)
+                tipsData.map(tips=><TipsCard key={tips._id} tips={tips}></TipsCard>)
             }
          </div>
             

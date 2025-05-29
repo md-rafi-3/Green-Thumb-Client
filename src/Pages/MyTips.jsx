@@ -7,18 +7,19 @@ import { CiEdit } from 'react-icons/ci';
 import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import noTipsImg from '../assets/Pets with halloween costumes-bro.png'
+import { Helmet } from 'react-helmet';
 
 const userDataPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
 const MyTips = () => {
   const userData = use(userDataPromise);
-  const { user,setUser,tipLength,setTipsLength } = useContext(AuthContext);
+  const { user, setUser, tipLength, setTipsLength } = useContext(AuthContext);
   const tipsData = useLoaderData()
 
-  
-  console.log(tipsData)
+
+
 
   const realUser = userData.find(real => real.email === user.email);
-  console.log("real user", realUser)
+
 
 
   const initialData = tipsData.filter(myTips => myTips.email === user.email);
@@ -26,7 +27,7 @@ const MyTips = () => {
 
   const [myTipsData, setMyTipsData] = useState(initialData);
 
-    setTipsLength(myTipsData.length);
+  setTipsLength(myTipsData.length);
 
 
   const handleDelete = (id) => {
@@ -49,7 +50,7 @@ const MyTips = () => {
 
             Swal.fire({
               title: "Deleted!",
-              text: "Your tips has been deleted.",
+              text: "Your tip has been deleted.",
               icon: "success"
             });
             // deleted form ui
@@ -71,45 +72,45 @@ const MyTips = () => {
     const photoURL = e.target.photo.value;
     const bio = e.target.bio.value;
     const expertiseValue = e.target.expertise.value;
-   
-    const expertise= expertiseValue.split(/[\s,]+/).filter(Boolean);
-     console.log("input data", displayName, location, photoURL, bio, expertise)
-     
 
-     const updatedData={
-      displayName:displayName,
-      location:location,
-      photoURL:photoURL,
-      bio:bio,
-      expertise:expertise,
-      email:user.email
-     }
+    const expertise = expertiseValue.split(/[\s,]+/).filter(Boolean);
+ 
 
-     setUser(updatedData)
+
+    const updatedData = {
+      displayName: displayName,
+      location: location,
+      photoURL: photoURL,
+      bio: bio,
+      expertise: expertise,
+      email: user.email
+    }
+
+    setUser(updatedData)
 
     //  update profile in db
-    fetch("https://green-thumb-server-delta.vercel.app/gardeners",{
-      method:"PATCH",
-      headers:{
-        "content-type":"application/json"
+    fetch("https://green-thumb-server-delta.vercel.app/gardeners", {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json"
       },
-      body:JSON.stringify(updatedData)
-    }).then(res=>res.json()).then(data=>{
-      console.log(data);
+      body: JSON.stringify(updatedData)
+    }).then(res => res.json()).then(data => {
+    
       if (data.modifiedCount) {
-                      
-                      // alert
-                      Swal.fire({
-                          position: "center",
-                          icon: "success",
-                          title: "Your work has been saved",
-                          showConfirmButton:true,
-                          confirmButtonText: "View Tips",
-                          timer:2000
-                      })
-      
-                      
-                  }
+
+        // alert
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your profile has been updated!",
+          showConfirmButton: true,
+          confirmButtonText: "OK",
+          timer: 2000
+        })
+
+
+      }
     })
   }
 
@@ -118,12 +119,15 @@ const MyTips = () => {
 
   return (
     <div className='w-11/12 mx-auto py-5'>
+      <Helmet>
+        <title>Green-Thumb || My-Tips</title>
+      </Helmet>
 
 
       <div className='flex md:flex-row flex-col items-center md:justify-start justify-center gap-3'>
         <div className="avatar">
           <div className="w-28 rounded-full">
-            <img src={user.photoURL}   referrerPolicy="no-referrer" />
+            <img src={user.photoURL} referrerPolicy="no-referrer" />
           </div>
         </div>
         <div className='space-y-1 flex flex-col md:justify-start justyfy-center md:items-start items-center'>
@@ -131,7 +135,7 @@ const MyTips = () => {
           <h1 className='text-accent'>{user.email}</h1>
           <div className='flex gap-3 text-accent'>
             <p>{realUser.followersCount} followers</p>
-            
+
             <p>{tipLength} tips</p>
           </div>
 
@@ -225,15 +229,15 @@ const MyTips = () => {
       </div>
 
       {/* modal */}
-     
+
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-         
+
           <h1 className='text-center text-3xl font-bold  '>Update Your Profile</h1>
           {/* modal body */}
           <form onSubmit={handleProfileUpdate} className='fieldset'>
             <label className="label">Name</label>
-            <input required  type="text" placeholder="Your name" className="input w-full" defaultValue={user?.displayName} name='name' />
+            <input required type="text" placeholder="Your name" className="input w-full" defaultValue={user?.displayName} name='name' />
             <label className="label">Location</label>
             <input required name='location' defaultValue={realUser?.location} type="text" placeholder="Your location" className="input w-full" />
             <label className="label">Photo</label>
@@ -244,7 +248,7 @@ const MyTips = () => {
             <textarea required name='bio' defaultValue={realUser?.bio} className="textarea w-full" placeholder="Write a Bio"></textarea>
 
             <div onClick={() => document.getElementById('my_modal_1').close()} className='flex justify-end items-center gap-3 mt-3'><button type='button' className='btn border-primary btn-outline'>Cancel</button>
-              <button className='btn  btn-primary' onClick={() => document.getElementById('my_modal_1').close()}  type='submit' >Update</button></div>
+              <button className='btn  btn-primary' onClick={() => document.getElementById('my_modal_1').close()} type='submit' >Update</button></div>
           </form>
           {/* modal body end */}
 
