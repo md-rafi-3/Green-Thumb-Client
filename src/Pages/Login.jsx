@@ -58,12 +58,12 @@ const Login = () => {
        setUser(result.user)
       
       // Check if user already exists
-      fetch(`http://localhost:3000/gardeners?email=${userData.email}`)
+      fetch(`https://green-thumb-server-delta.vercel.app/gardeners?email=${userData.email}`)
         .then(res => res.json())
         .then(existingUsers => {
           if (existingUsers.length === 0) {
             // Only add to DB if user doesn't exist
-            fetch("http://localhost:3000/gardeners", {
+            fetch("https://green-thumb-server-delta.vercel.app/gardeners", {
               method: "POST",
               headers: {
                 "content-type": "application/json"

@@ -9,7 +9,7 @@ import { Link, useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
  import { ToastContainer, toast } from 'react-toastify';
 
-const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
+const authorPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
 
 
 
@@ -66,7 +66,7 @@ const TipsDetails = () => {
   setLikes(updatedLikeCount);
 
   // Server Update
-  fetch("http://localhost:3000/tips/privet", {
+  fetch("https://green-thumb-server-delta.vercel.app/tips/privet", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json"
@@ -127,7 +127,8 @@ const TipsDetails = () => {
     <div className='flex items-center gap-3'>
       <div className="avatar">
         <div className="w-12 rounded-full">
-          <img src={realAuthor?.photoURL || "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} />
+          <img src={realAuthor?.photoURL || "https://i.ibb.co/4pDNDk1/avatar-placeholder.png"} 
+           referrerPolicy="no-referrer"/>
         </div>
       </div>
       <div>

@@ -5,7 +5,7 @@ import { AuthContext } from '../Context/AuthContext';
 import { Link } from 'react-router';
 
 
-const fetPromise=fetch("http://localhost:3000/gardeners/featured").then(res=>res.json())
+const fetPromise=fetch("https://green-thumb-server-delta.vercel.app/gardeners/featured").then(res=>res.json())
 const FeturesGardeners = () => {
     const fetGardeners=use(fetPromise);
     console.log("future",fetGardeners)

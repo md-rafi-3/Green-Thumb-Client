@@ -21,7 +21,7 @@ const ShareTips = () => {
 
 
         // add to db
-        fetch("http://localhost:3000/tips", {
+        fetch("https://green-thumb-server-delta.vercel.app/tips", {
             method: "POST",
             headers: {
                 "content-type": "application/json"

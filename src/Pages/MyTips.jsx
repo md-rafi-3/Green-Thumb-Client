@@ -8,7 +8,7 @@ import { MdDelete } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import noTipsImg from '../assets/Pets with halloween costumes-bro.png'
 
-const userDataPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
+const userDataPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
 const MyTips = () => {
   const userData = use(userDataPromise);
   const { user,setUser,tipLength,setTipsLength } = useContext(AuthContext);
@@ -40,7 +40,7 @@ const MyTips = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/tips/privet/${id}`, {
+        fetch(`https://green-thumb-server-delta.vercel.app/tips/privet/${id}`, {
           method: "DELETE"
         }).then(res => res.json()).then(data => {
           if (data.deletedCount) {
@@ -88,7 +88,7 @@ const MyTips = () => {
      setUser(updatedData)
 
     //  update profile in db
-    fetch("http://localhost:3000/gardeners",{
+    fetch("https://green-thumb-server-delta.vercel.app/gardeners",{
       method:"PATCH",
       headers:{
         "content-type":"application/json"

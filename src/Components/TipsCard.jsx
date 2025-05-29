@@ -3,7 +3,7 @@ import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa6';
 import { Link } from 'react-router';
 
-const authorPromise = fetch("http://localhost:3000/gardeners").then(res => res.json())
+const authorPromise = fetch("https://green-thumb-server-delta.vercel.app/gardeners").then(res => res.json())
 const TipsCard = ({ tips }) => {
     const authorData=use(authorPromise);
    

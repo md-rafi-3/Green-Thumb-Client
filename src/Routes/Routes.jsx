@@ -29,25 +29,25 @@ export const router = createBrowserRouter([
             {
                path:"gardeners",
                element:<Gardeners></Gardeners>,
-               loader:()=>fetch("http://localhost:3000/gardeners"),
+               loader:()=>fetch("https://green-thumb-server-delta.vercel.app/gardeners"),
                hydrateFallbackElement:<Loading></Loading>
             },
             {
               path:"browseTips",
               element:<BrowseTips></BrowseTips>,
-              loader:()=>fetch("http://localhost:3000/tips"),
+              loader:()=>fetch("https://green-thumb-server-delta.vercel.app/tips"),
               hydrateFallbackElement:<Loading></Loading>
             },
             {
               path:"tipsDetails/:id",
-              loader:({params})=>fetch(`http://localhost:3000/tips/${params.id}`),
+              loader:({params})=>fetch(`https://green-thumb-server-delta.vercel.app/tips/${params.id}`),
               element:<PrivetRoute><TipsDetails></TipsDetails></PrivetRoute>,
               hydrateFallbackElement:<Loading></Loading>
             },
             {
               path:"updateTips/:id",
               element:<PrivetRoute><UpdatedTips></UpdatedTips></PrivetRoute>,
-             loader:({params})=>fetch(`http://localhost:3000/tips/${params.id}`),
+             loader:({params})=>fetch(`https://green-thumb-server-delta.vercel.app/tips/${params.id}`),
              hydrateFallbackElement:<Loading></Loading>
             },
             {
@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
             {
               path:"myTips",
               element:<PrivetRoute><MyTips></MyTips></PrivetRoute>,
-              loader:()=>fetch("http://localhost:3000/tips/privet"),
+              loader:()=>fetch("https://green-thumb-server-delta.vercel.app/tips/privet"),
               hydrateFallbackElement:<Loading></Loading>
             },
             {

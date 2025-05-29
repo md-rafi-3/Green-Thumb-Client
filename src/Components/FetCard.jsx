@@ -39,7 +39,7 @@ const FetCard = ({ fetGarden }) => {
 
 
    // Server Update
-    fetch("http://localhost:3000/gardeners", {
+    fetch("https://green-thumb-server-delta.vercel.app/gardeners", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -67,7 +67,8 @@ const FetCard = ({ fetGarden }) => {
         <div className='flex items-center gap-3'>
           <div className="avatar">
             <div className="w-12 rounded-full">
-              <img src={photoURL || "https://via.placeholder.com/150"} alt="Gardener" />
+              <img src={photoURL || "https://via.placeholder.com/150"} alt="Gardener" 
+               referrerPolicy="no-referrer"/>
             </div>
           </div>
           <div>

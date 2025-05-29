@@ -38,7 +38,7 @@ const handleUpdate=(e)=>{
   
 
     // add to db
-    fetch(`http://localhost:3000/tips/privet/${_id}`,{
+    fetch(`https://green-thumb-server-delta.vercel.app/tips/privet/${_id}`,{
         method:"PUT",
         headers:{
             "content-type":"application/json"
