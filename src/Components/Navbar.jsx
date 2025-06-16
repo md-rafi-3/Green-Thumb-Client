@@ -76,7 +76,7 @@ const Navbar = () => {
                 <li><NavLink to="/myTips"><FaRegUser />My Tips </NavLink></li></>}
 
               {
-                !user && <li><button className='flex rounded-lg items-center gap-2 '><span><MdLogin></MdLogin></span>Login / Sign Up</button></li>
+                !user && <li><NavLink to="/login"><button className='flex rounded-lg items-center gap-2 '><span><MdLogin></MdLogin></span>Login / Sign Up</button></NavLink></li>
               }
             </ul>
 
@@ -129,7 +129,7 @@ const Navbar = () => {
               </ul>
             </div>
           </div>) : <Link to="/login">
-            <button className='flex items-center gap-1 px-3 py-3 hover:bg-secondary rounded-lg hover:text-white'><MdLogin />Login</button>
+            <button className='md:flex hidden items-center gap-1 px-3 py-3 hover:bg-secondary rounded-lg hover:text-white'><MdLogin />Login</button>
           </Link>
         }
 
